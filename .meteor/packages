@@ -7,5 +7,14 @@
 meteor-platform
 insecure
 less
-iron:router@0.9.4
+iron:router
 accounts-password
+meteorhacks:npm
+
+
+npm-container
+yogiben:admin
+dburles:collection-helpers
+accounts-base
+twbs:bootstrap
+fortawesome:fontawesome
