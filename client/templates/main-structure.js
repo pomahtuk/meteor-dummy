@@ -5,7 +5,7 @@ Template.mainStructure.onRendered(function () {
     spaceBetween: 10,
     keyboardControl: true,
     grabCursor: true,
-    threshold: 100,
+    threshold: 35,
     mousewheelControl: true,
     mousewheelForceToAxis: true,
     speed: 500
