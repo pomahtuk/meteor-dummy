@@ -6,7 +6,6 @@
 
 meteor-platform
 insecure
-less
 iron:router
 accounts-password
 meteorhacks:npm
@@ -18,3 +17,4 @@ dburles:collection-helpers
 accounts-base
 twbs:bootstrap
 fortawesome:fontawesome
+lauricio:less-autoprefixer
