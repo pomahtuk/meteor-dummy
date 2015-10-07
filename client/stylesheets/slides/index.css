@@ -1,0 +1,60 @@
+.index-content {
+  padding-bottom: calc(5% + 150px);
+}
+
+.index-text--catchy {
+  font-size: 22px;
+  line-height: 27px;
+  color: #fff;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.index-text--logo {
+  display: block;
+}
+
+.index-next-button {
+  display: block;
+  background: #fff;
+  box-sizing: border-box;
+  width: 100px;
+  line-height: 100px;
+  height: 100px;
+  position: absolute;
+  bottom: calc(5% + 50px);
+  left: calc(50% - 50px);
+  border-radius: 50px;
+  color: #85b200;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.index-next-button:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.index-next-button::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 110px;
+  height: 110px;
+  background: none;
+  border: 1px solid #fff;
+  border-radius: 100px;
+}
+
+.index-next-button::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -47px;
+  left: 40px;
+  width: 20px;
+  height: 43px;
+  background: url("/img/arrow_down.png");
+}
