@@ -1,14 +1,14 @@
 <template name="botanikaBody">
   <body>
+    <button class="btn-hamburger js-slideout-toggle">
+      <span>menu</span>
+    </button>
+
     <nav id="menu" class="menu slideout-menu">
       {{> mainMenu}}
     </nav>
 
     <main id="main" class="main-panel slideout-panel">
-      <button class="btn-hamburger js-slideout-toggle">
-        <span>menu</span>
-      </button>
-
       {{> mainStructure}}
     </main>
 
