@@ -1,4 +1,13 @@
 Template.mainStructure.onRendered(function () {
+  var activeSlideKey = document.querySelector('.swiper-container-v').dataset.activePage || '';
+
+  var slidesDict = {
+    '': 0,
+    'contact': 1
+  }
+
+  var activeSlideIndex = slidesDict[activeSlideKey];
+
   var swiperH = new Swiper('.swiper-container-h', {
     pagination: '.swiper-pagination-h',
     paginationClickable: true,
@@ -20,8 +29,20 @@ Template.mainStructure.onRendered(function () {
     keyboardControl: true,
     mousewheelControl: true,
     grabCursor: true,
-    hashnav: true,
     threshold: 100,
-    mousewheelForceToAxis: true
+    mousewheelForceToAxis: true,
+    preloadImages: false,
+    lazyLoading: true
   });
+
+  // reflect url changes
+  if (activeSlideIndex && activeSlideIndex != 0) {
+    swiperV.slideTo(activeSlideIndex, 0);
+  }
+
+  // button switchers
+  document.querySelector('.index-next-button').addEventListener('click', function() {
+    swiperV.slideNext();
+  });
+
 });
