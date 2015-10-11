@@ -11,7 +11,7 @@ Template.mainStructure.onRendered(function () {
   var swiperH = new Swiper('.swiper-container-h', {
     pagination: '.swiper-pagination-h',
     paginationClickable: true,
-    spaceBetween: 10,
+    spaceBetween: 0,
     keyboardControl: true,
     grabCursor: true,
     threshold: 35,
@@ -25,7 +25,7 @@ Template.mainStructure.onRendered(function () {
     pagination: '.swiper-pagination-v',
     paginationClickable: true,
     direction: 'vertical',
-    spaceBetween: 10,
+    spaceBetween: 0,
     keyboardControl: true,
     mousewheelControl: true,
     grabCursor: true,
