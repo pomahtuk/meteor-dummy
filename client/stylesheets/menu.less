@@ -147,6 +147,10 @@ body,
 }
 
 .slideout-open {
+  .slideout-menu {
+    transform: translate3d(0px, 0px, 0px);
+  }
+
   .btn-hamburger span {
     background-color: transparent;
   }
@@ -171,12 +175,13 @@ body,
   top: 0;
   bottom: 0;
   right: 0;
-  z-index: 0;
+  z-index: 999;
   width: 300px;
   background: url('/img/menu_bg.png');
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  display: none;
+  transform: translate3d(300px, 0px, 0px);
+  transition: all 300ms linear;
 }
 
 .main-panel,
@@ -193,6 +198,10 @@ body,
 
 .slideout-open .slideout-menu {
   display: block;
+}
+
+.slideout-open .main-panel {
+  transform: translate3d(0px, 0px, 0px) !important;
 }
 
 
