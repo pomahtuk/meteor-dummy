@@ -42,7 +42,9 @@ Template.mainStructure.onRendered(function () {
 
   // button switchers
   document.querySelector('.index-next-button').addEventListener('click', function() {
-    swiperV.slideNext();
+    setTimeout(function() {
+      swiperV.slideNext();
+    }, 200)
   });
 
 });
