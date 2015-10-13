@@ -1,5 +1,28 @@
 // if the database is empty on server start, create some sample data.
 Meteor.startup(function () {
+  // if (Accounts.find().count() === 0) {
+  //   var users = [
+  //         {name:"Admin User",email:"pman89@ya.ru",roles:['admin']}
+  //       ];
+  //
+  //   _.each(users, function (user) {
+  //     var id;
+  //
+  //     id = Accounts.createUser({
+  //       email: user.email,
+  //       password: "177591",
+  //       profile: { name: user.name }
+  //     });
+  //
+  //     if (user.roles.length > 0) {
+  //       // Need _id of existing user record so this call must come
+  //       // after `Accounts.createUser` or `Accounts.onCreate`
+  //       Roles.addUsersToRoles(id, user.roles, 'default-group');
+  //     }
+  //
+  //   });
+  // }
+
   if (Pages.find().count() === 0) {
     var data = [
       {
