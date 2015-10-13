@@ -43,18 +43,23 @@ pre {
   font-size: 14px;
 }
 
+.botanika-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
 .image-slider {
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-}
+  &--index{
+    background: url('/img/main_bg.jpg')center center no-repeat;
+    background-size: cover;
+  }
 
-.image-3 {
-  background: url('http://c1.staticflickr.com/5/4112/4966989323_54b6d15c06_b.jpg') center center no-repeat;
-  background-size: cover;
-}
-
-.image-4 {
-  background: url('http://c1.staticflickr.com/5/4035/4400808881_c723e0d34a_z.jpg?zz=1') center center no-repeat;
-  background-size: cover;
+  &--contacts{
+    background: url('/img/contacts_bg.jpg')center center no-repeat;
+    background-size: cover;
+  }
 }

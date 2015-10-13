@@ -9,7 +9,9 @@
     </nav>
 
     <main id="main" class="main-panel slideout-panel">
-      {{> mainStructure}}
+      <div class="botanika-page image-slider image-slider--{{action}}">
+        {{> yield}}
+      </div>
     </main>
 
   </body>
