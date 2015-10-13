@@ -10,11 +10,8 @@ Template.botanikaBody.onRendered(function () {
     slideout.toggle();
   });
 
-  document.querySelector('#main').addEventListener('click', function(eve) {
+  $('.menu-item-link, .menu-to-home, #main').click(function() {
     slideout.close();
   });
 
-  document.querySelector('.menu').addEventListener('click', function(eve) {
-    if (eve.target.nodeName === 'A') { slideout.close(); }
-  });
 });
