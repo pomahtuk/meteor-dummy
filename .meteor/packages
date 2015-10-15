@@ -9,7 +9,6 @@ iron:router
 accounts-password
 
 
-yogiben:admin
 dburles:collection-helpers
 accounts-base
 twbs:bootstrap
@@ -35,3 +34,4 @@ aldeed:collection2
 aldeed:autoform
 alanning:roles
 accounts-ui
+botanika:admin
