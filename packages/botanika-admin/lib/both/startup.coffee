@@ -4,7 +4,7 @@ adminTablesDom = '<"box"<"box-header"<"box-toolbar"<"pull-left"<lf>><"pull-right
 
 adminEditButton = {
 	data: '_id'
-	title: 'Edit'
+	title: 'Редактировать'
 	createdCell: (node, cellData, rowData) ->
 		$(node).html(Blaze.toHTMLWithData Template.adminEditBtn, {_id: cellData})
 	width: '40px'
@@ -12,7 +12,7 @@ adminEditButton = {
 }
 adminDelButton = {
 	data: '_id'
-	title: 'Delete'
+	title: 'Удалить'
 	createdCell: (node, cellData, rowData) ->
 		$(node).html(Blaze.toHTMLWithData Template.adminDeleteBtn, {_id: cellData})
 	width: '40px'
@@ -86,7 +86,7 @@ adminCreateRouteViewOptions = (collection, collectionName) ->
 			@render()
 		onAfterAction: ->
 			Session.set 'admin_title', collectionName
-			Session.set 'admin_subtitle', 'View'
+			Session.set 'admin_subtitle', 'Просмотр'
 			Session.set 'admin_collection_name', collectionName
 			collection.routes?.view?.onAfterAction
 	_.defaults options, collection.routes?.view
@@ -104,7 +104,7 @@ adminCreateRouteNewOptions = (collection, collectionName) ->
 			@render()
 		onAfterAction: ->
 			Session.set 'admin_title', AdminDashboard.collectionLabel collectionName
-			Session.set 'admin_subtitle', 'Create new'
+			Session.set 'admin_subtitle', 'Создать'
 			Session.set 'admin_collection_page', 'new'
 			Session.set 'admin_collection_name', collectionName
 			collection.routes?.new?.onAfterAction
@@ -128,7 +128,7 @@ adminCreateRouteEditOptions = (collection, collectionName) ->
 			@render()
 		onAfterAction: ->
 			Session.set 'admin_title', AdminDashboard.collectionLabel collectionName
-			Session.set 'admin_subtitle', 'Edit ' + @params._id
+			Session.set 'admin_subtitle', 'Редактировать ' + @params._id
 			Session.set 'admin_collection_page', 'edit'
 			Session.set 'admin_collection_name', collectionName
 			Session.set 'admin_id', parseID(@params._id)

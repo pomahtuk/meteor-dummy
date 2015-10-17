@@ -32,7 +32,7 @@ Router.route "adminDashboard",
 	action: ->
 		@render()
 	onAfterAction: ->
-		Session.set 'admin_title', 'Dashboard'
+		Session.set 'admin_title', 'Панель управления'
 		Session.set 'admin_collection_name', ''
 		Session.set 'admin_collection_page', ''
 
@@ -45,8 +45,8 @@ Router.route "adminDashboardUsersView",
 	data: ->
 		admin_table: AdminTables.Users
 	onAfterAction: ->
-		Session.set 'admin_title', 'Users'
-		Session.set 'admin_subtitle', 'View'
+		Session.set 'admin_title', 'Пользователи'
+		Session.set 'admin_subtitle', 'Просмотр'
 		Session.set 'admin_collection_name', 'Users'
 
 Router.route "adminDashboardUsersNew",
@@ -56,8 +56,8 @@ Router.route "adminDashboardUsersNew",
 	action: ->
 		@render()
 	onAfterAction: ->
-		Session.set 'admin_title', 'Users'
-		Session.set 'admin_subtitle', 'Create new user'
+		Session.set 'admin_title', 'Пользователи'
+		Session.set 'admin_subtitle', 'Создать нового пользователя'
 		Session.set 'admin_collection_page', 'New'
 		Session.set 'admin_collection_name', 'Users'
 
@@ -72,8 +72,8 @@ Router.route "adminDashboardUsersEdit",
 	action: ->
 		@render()
 	onAfterAction: ->
-		Session.set 'admin_title', 'Users'
-		Session.set 'admin_subtitle', 'Edit user ' + @params._id
+		Session.set 'admin_title', 'Пользователи'
+		Session.set 'admin_subtitle', 'Редактировать пользователя ' + @params._id
 		Session.set 'admin_collection_page', 'edit'
 		Session.set 'admin_collection_name', 'Users'
 		Session.set 'admin_id', @params._id

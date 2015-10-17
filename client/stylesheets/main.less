@@ -49,26 +49,32 @@ body.botanika-body {
 
 .image-slider {
   &--index{
-    background: radial-gradient(transparent 0%, transparent 15%, black), url('/img/main_bg.jpg') center center no-repeat;
+    background: radial-gradient(transparent 0%, transparent 15%, rgba(0,0,0, 0.85)), url('/img/main_bg.jpg') center center no-repeat;
     background-size: cover;
   }
 
   &--contacts{
-    background: radial-gradient(transparent 0%, transparent 15%, black), url('/img/contacts_bg.jpg') center center no-repeat;
+    background: radial-gradient(transparent 0%, transparent 15%, rgba(0,0,0, 0.85)), url('/img/contacts_bg.jpg') center center no-repeat;
     background-size: cover;
   }
-  
+
   &--evolution{
-    background: radial-gradient(transparent 0%, transparent 15%, black), url('/img/news_bg.jpg') center center no-repeat;
+    background: radial-gradient(transparent 0%, transparent 15%, rgba(0,0,0, 0.85)), url('/img/news_bg.jpg') center center no-repeat;
     background-size: cover;
   }
 }
 
 .botanika-logo {
   position: absolute;
-  top: 10px;
+  top: 11px;
   left: 15px;
   img {
     width: 30px;
+  }
+}
+
+@media all and (min-width: 40em) {
+  .botanika-logo {
+    top: 20px;
   }
 }

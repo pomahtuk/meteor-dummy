@@ -1,0 +1,34 @@
+.botanika-news-container {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 5%;
+  text-align: left;
+  font-size: 0;
+}
+
+.botanika-news-item {
+  font-size: 14px;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 300px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.5) 1px 2px 10px 1px;
+  color: #333333;
+}
+
+.botanika-news-item--title {
+  font-size: 18px;
+  line-height: 21px;
+  font-family: "FuturaPT";
+  color: #688c00;
+  margin: 15px 0;
+  text-transform: uppercase;
+}
+
+.botanika-news-item--text {
+  margin-top: 20px;
+  line-height: 21px;
+}

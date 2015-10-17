@@ -17,7 +17,7 @@ AdminDashboard =
 	adminRoutes: ['adminDashboard','adminDashboardUsersNew','adminDashboardUsersEdit','adminDashboardView','adminDashboardNew','adminDashboardEdit']
 	collectionLabel: (collection)->
 		if collection == 'Users'
-			'Users'
+			'Пользователи'
 		else if collection? and typeof AdminConfig.collections[collection].label == 'string'
 			AdminConfig.collections[collection].label
 		else Session.get 'admin_collection_name'
@@ -50,20 +50,20 @@ AdminDashboard =
 
 
 AdminDashboard.schemas.newUser = new SimpleSchema
-	email: 
+	email:
 		type: String
-		label: "Email address"
+		label: "Email адрес"
 	chooseOwnPassword:
 		type: Boolean
-		label: 'Let this user choose their own password with an email'
+		label: 'Позволить пользователю самостоятельно выбрать пароль'
 		defaultValue: true
 	password:
 		type: String
-		label: 'Password'
+		label: 'Пароль'
 		optional: true
 	sendPassword:
 		type: Boolean
-		label: 'Send this user their password by email'
+		label: 'Отправить позователю пароль по почте'
 		optional: true
 
 AdminDashboard.schemas.sendResetPasswordEmail = new SimpleSchema

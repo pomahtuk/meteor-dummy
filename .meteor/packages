@@ -35,3 +35,6 @@ aldeed:autoform
 alanning:roles
 accounts-ui
 botanika:admin
+cfs:filesystem
+cfs:standard-packages
+botanika:autoform-file

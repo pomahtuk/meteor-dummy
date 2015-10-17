@@ -4,7 +4,7 @@ Meteor.methods
 		if Roles.userIsInRole this.userId, ['admin']
 			this.unblock()
 			result = adminCollectionObject(collection).insert doc
-				
+
 			return result
 
 	adminUpdateDoc: (modifier,collection,_id)->
@@ -40,7 +40,7 @@ Meteor.methods
 					Email.send
 						to: user.email
 						from: AdminConfig.fromEmail
-						subject: 'Your account has been created'
+						subject: 'Ваша учетная запись была создана'
 						html: 'You\'ve just had an account created for ' + Meteor.absoluteUrl() + ' with password ' + doc.password
 
 				if not doc.sendPassword

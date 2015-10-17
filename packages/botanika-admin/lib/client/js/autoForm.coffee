@@ -39,12 +39,12 @@ AutoForm.hooks
 						hook.done null, collection
 			return false
 		onSuccess: (formType, collection)->
-			AdminDashboard.alertSuccess 'Successfully updated'
+			AdminDashboard.alertSuccess 'Обновлено'
 			Router.go "/admin/#{collection}"
 
 	adminNewUser:
 		onSuccess: (formType, result)->
-			AdminDashboard.alertSuccess 'Created user'
+			AdminDashboard.alertSuccess 'Пользователь создан'
 			Router.go '/admin/Users'
 
 	adminUpdateUser:
@@ -52,13 +52,13 @@ AutoForm.hooks
 			Meteor.call 'adminUpdateUser', updateDoc, Session.get('admin_id'), @done
 			return false
 		onSuccess: (formType, result)->
-			AdminDashboard.alertSuccess 'Updated user'
+			AdminDashboard.alertSuccess 'Пользователь обновлен'
 			Router.go '/admin/Users'
 
 	adminSendResetPasswordEmail:
 		onSuccess: (formType, result)->
-			AdminDashboard.alertSuccess 'Email sent'
+			AdminDashboard.alertSuccess 'Сообщение отправлено'
 
 	adminChangePassword:
 		onSuccess: (operation, result, template)->
-			AdminDashboard.alertSuccess 'Password reset'
+			AdminDashboard.alertSuccess 'Пароль был сброшен'
