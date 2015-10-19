@@ -2,7 +2,9 @@
   <div class="botanika-news-item">
     <span class="botanika-news-item--date">{{ createdAt }}</span>
     <h2 class="botanika-news-item--title">{{ title }}</h2>
-    <img class="botanika-news-item--image" src="http://placehold.it/260x195">
+
+    <img src="{{getThumb picture 'ProfilePictures' 'thumbs'}}" lass="botanika-news-item--image">
+
     <p class="botanika-news-item--text">{{ body }}</p>
   </div>
 </template>
