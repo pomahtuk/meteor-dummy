@@ -39,3 +39,4 @@ cfs:filesystem
 cfs:standard-packages
 botanika:autoform-file
 cfs:graphicsmagick
+mpowaga:autoform-summernote
