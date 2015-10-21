@@ -24,10 +24,10 @@ var backGroudTypeChecker = function () {
   $typeSelect.change(function () {
     var selectVal = $typeSelect.val();
 
-    if (selectVal === 'false') {
+    if (selectVal === 'true') {
       $photoInput.hide();
       $videoUrlInput.show();
-    } else if (selectVal === 'true') {
+    } else if (selectVal === 'false') {
       $photoInput.show();
       $videoUrlInput.hide();
     } else {

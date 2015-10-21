@@ -9,7 +9,7 @@
     </nav>
 
     <main id="main" class="main-panel slideout-panel">
-      <div class="botanika-page image-slider image-slider--{{action}}">
+      <div class="botanika-page image-slider image-slider--{{action}}" {{getPageAttrs pageData}}>
         {{> yield}}
       </div>
     </main>
