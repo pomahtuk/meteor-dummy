@@ -26,10 +26,12 @@ Template.afFileUpload.onRendered ->
     self.value.set null
 
 Template.afFileUpload.helpers
+  className: ->
+    @atts.class or ''
   label: ->
-    @atts.label or 'Choose file'
+    @atts.label or 'Выбрать файл...'
   removeLabel: ->
-    @atts.removeLabel or 'Remove'
+    @atts.removeLabel or 'Удалить'
   value: ->
     doc = getDocument @
     doc?.isUploaded() and doc._id

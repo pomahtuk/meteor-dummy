@@ -2,7 +2,8 @@ Template.AdminLayout.created = function () {
   var self = this;
 
   self.minHeight = new ReactiveVar(
-    $(window).height() - $('.main-header').height());
+    $(window).height() - $('.main-header').height()
+  );
 
   $(window).resize(function () {
     self.minHeight.set($(window).height() - $('.main-header').height());
@@ -14,6 +15,30 @@ Template.AdminLayout.created = function () {
 Template.AdminLayout.destroyed = function () {
   $('body').removeClass('fixed');
 };
+
+var backGroudTypeChecker = function () {
+  var $typeSelect = $('.cover-type-select'),
+    $photoInput = $('.cover-type-photo').parents('.form-group'),
+    $videoUrlInput = $('.cover-type-video').parents('.form-group');
+
+  $typeSelect.change(function () {
+    var selectVal = $typeSelect.val();
+
+    if (selectVal === 'false') {
+      $photoInput.hide();
+      $videoUrlInput.show();
+    } else if (selectVal === 'true') {
+      $photoInput.show();
+      $videoUrlInput.hide();
+    } else {
+      $photoInput.hide();
+      $videoUrlInput.hide();
+    }
+  }).change();
+};
+
+Template.AdminDashboardEdit.onRendered(backGroudTypeChecker);
+Template.AdminDashboardNew.onRendered(backGroudTypeChecker);
 
 Template.AdminLayout.helpers({
   minHeight: function () {

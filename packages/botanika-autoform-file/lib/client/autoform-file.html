@@ -1,5 +1,5 @@
 <template name="afFileUpload">
-  <div>
+  <div class="{{ className }}">
     {{#if file}}
       {{#if file.isUploaded}}
         {{> Template.dynamic template=previewTemplate data=previewTemplateData}}
