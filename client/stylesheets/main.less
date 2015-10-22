@@ -64,17 +64,35 @@ body.botanika-body {
   }
 }
 
+@animation-duration: 3s;
+
 .botanika-logo {
   position: absolute;
   top: 11px;
   left: 15px;
-  animation-duration: 3s;
-  animation-name: rotateLogo;
-  animation-iteration-count: infinite;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 14px;
+    height: 40px;
+    width: 2px;
+    background: #fff;
+    animation-duration: @animation-duration;
+    animation-name: showStripe;
+    animation-iteration-count: infinite;
+    // animation-timing-function: linear;
+  }
 
   img {
     width: 30px;
     height: 40px;
+    animation-duration: @animation-duration;
+    animation-name: rotateLogo;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
   }
 }
 
@@ -84,19 +102,50 @@ body.botanika-body {
   }
 }
 
+@keyframes showStripe {
+  from {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 255;
+  }
+  30% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 255;
+  }
+  80% {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes rotateLogo {
   from {
     transform: rotateY(0deg);
-    // left: 15px;
   }
-
+  25% {
+    transform: rotateY(90deg);
+  }
   50% {
     transform: rotateY(180deg);
-    // left: 30px;
   }
-
+  75% {
+    transform: rotateY(270deg);
+  }
   to {
     transform: rotateY(360deg);
-    // left: 15px;
   }
 }
