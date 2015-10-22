@@ -68,13 +68,35 @@ body.botanika-body {
   position: absolute;
   top: 11px;
   left: 15px;
+  animation-duration: 3s;
+  animation-name: rotateLogo;
+  animation-iteration-count: infinite;
+
   img {
     width: 30px;
+    height: 40px;
   }
 }
 
 @media all and (min-width: 40em) {
   .botanika-logo {
     top: 20px;
+  }
+}
+
+@keyframes rotateLogo {
+  from {
+    transform: rotateY(0deg);
+    // left: 15px;
+  }
+
+  50% {
+    transform: rotateY(180deg);
+    // left: 30px;
+  }
+
+  to {
+    transform: rotateY(360deg);
+    // left: 15px;
   }
 }
