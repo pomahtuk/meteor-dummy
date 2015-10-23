@@ -64,7 +64,14 @@ body.botanika-body {
   }
 }
 
-@animation-duration: 3s;
+@animation-duration: 4s;
+
+.loading-app {
+  animation-duration: @animation-duration;
+  animation-name: rotateLogo;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
 
 .botanika-logo {
   position: absolute;

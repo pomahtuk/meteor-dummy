@@ -10,8 +10,8 @@ Meteor.publish('news', function() {
   return News.find();
 });
 
-Meteor.publish('profilePictures', function() {
-  return ProfilePictures.find();
+Meteor.publish('newsPictures', function() {
+  return NewsPictures.find();
 });
 
 Meteor.publish('attachments', function() {
