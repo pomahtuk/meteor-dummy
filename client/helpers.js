@@ -6,6 +6,10 @@ Template.registerHelper('getDoc', function(_id, collectionRef) {
   }
 });
 
+Template.registerHelper('notIndexAction', function(action) {
+  return (action !== 'index');
+});
+
 Template.registerHelper('getThumb', function(_id, collectionRef, thumbStore) {
   var collection = window[collectionRef],
     picture;

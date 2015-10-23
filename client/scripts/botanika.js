@@ -14,6 +14,6 @@ Template.botanikaBody.onRendered(function () {
     slideout.close();
   });
 
-  console.log('botanika template js running');
+  // console.log('botanika template js running');
 
 });

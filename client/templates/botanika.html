@@ -8,9 +8,15 @@
       {{> mainMenu}}
     </nav>
 
+    {{#if (notIndexAction action) }}
+      {{> botanikaLogo }}
+    {{/if}}
+
     <main id="main" class="main-panel slideout-panel">
       <div class="botanika-page image-slider image-slider--{{action}}" {{getPageAttrs pageData}}>
-        {{> yield}}
+        {{#transitioner transitionIn=transitionIn transitionOut=transitionOut}}
+          {{> yield}}
+        {{/transitioner}}
       </div>
     </main>
 
