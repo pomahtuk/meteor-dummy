@@ -13,8 +13,8 @@
     {{/if}}
 
     <main id="main" class="main-panel slideout-panel">
-      <div class="botanika-page image-slider image-slider--{{action}}" {{getPageAttrs pageData}}>
-        {{#transitioner transitionIn=transitionIn transitionOut=transitionOut}}
+      <div class="botanika-page image-slider image-slider--index">
+        {{#transitioner}}
           {{> yield}}
         {{/transitioner}}
       </div>

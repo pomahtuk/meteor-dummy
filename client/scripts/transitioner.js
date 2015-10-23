@@ -1,13 +1,14 @@
-var animationDuration = 1000;
+var animationInDuration = 1000;
+var animationOutDuration = 1600;
 
 $.Velocity.RegisterEffect('transition.slideDown', {
-  defaultDuration: animationDuration,
+  defaultDuration: animationInDuration,
   calls: [
     [
       {
         translateY: ['0%', '-100%'],
         translateZ: 0,
-        easing: "ease-in-out",
+        easing: "easeOutCubic",
         opacity: [1, 1]
       }
     ]
@@ -15,13 +16,13 @@ $.Velocity.RegisterEffect('transition.slideDown', {
 });
 
 $.Velocity.RegisterEffect('transition.slideDownOut', {
-  defaultDuration: animationDuration,
+  defaultDuration: animationOutDuration,
   calls: [
     [
       {
         translateY: ['100%', '0%'],
         translateZ: 0,
-        easing: "ease-in-out",
+        easing: "linear",
         opacity: [1, 1]
       }
     ]
@@ -29,13 +30,13 @@ $.Velocity.RegisterEffect('transition.slideDownOut', {
 });
 
 $.Velocity.RegisterEffect('transition.slideUpOut', {
-  defaultDuration: animationDuration,
+  defaultDuration: animationOutDuration,
   calls: [
     [
       {
         translateY: ['-100%', '0%'],
         translateZ: 0,
-        easing: "ease-in-out",
+        easing: "linear",
         opacity: [1, 1]
       }
     ]
@@ -43,13 +44,13 @@ $.Velocity.RegisterEffect('transition.slideUpOut', {
 });
 
 $.Velocity.RegisterEffect('transition.slideUp', {
-  defaultDuration: animationDuration,
+  defaultDuration: animationInDuration,
   calls: [
     [
       {
         translateY: ['0%', '100%'],
         translateZ: 0,
-        easing: "ease-in-out",
+        easing: "easeOutCubic",
         opacity: [1, 1]
       }
     ]
@@ -59,6 +60,17 @@ $.Velocity.RegisterEffect('transition.slideUp', {
 Transitioner.default({
   in: 'transition.slideUp',
   out: 'transition.slideUpOut'
+});
+
+// TODO: find a way to specify default transition not touching initial state
+
+Transitioner.transition({
+    fromRoute: 'main',
+    toRoute: 'contacts',
+    velocityAnimation: {
+        in: 'transition.slideUp',
+        out: 'transition.slideUpOut',
+    }
 });
 
 Transitioner.transition({
