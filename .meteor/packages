@@ -41,3 +41,6 @@ botanika:autoform-file
 cfs:graphicsmagick
 mpowaga:autoform-summernote
 ccorcos:transitioner
+useraccounts:core
+useraccounts:bootstrap
+useraccounts:iron-routing
