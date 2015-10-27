@@ -1,6 +1,9 @@
 if (Meteor.isClient) {
   Meteor.startup(function() {
-    GoogleMaps.initialize();
+    GoogleMaps.load({
+      key: 'AIzaSyBNv33lBH_uNEKmNyhkm9nIvGcHCXjHLbk',
+      signed_in: true
+    });
   });
 }
 
@@ -10,7 +13,7 @@ Template.housesSlide.helpers({
     if (GoogleMaps.loaded()) {
       // Map initialization options
       return {
-        center: new google.maps.LatLng(59.9500, 30.3000),
+        center: new google.maps.LatLng(60.639197, 30170803),
         zoom: 14,
         mapTypeControl: false,
         streetViewControl: false,
@@ -404,5 +407,9 @@ Template.housesSlide.onCreated(function() {
       position: map.options.center,
       map: map.instance
     });
+
+    var overlay = Meteor.mapHelpers.addOverlay(map.instance);
+
+    window.o = overlay;
   });
 });
