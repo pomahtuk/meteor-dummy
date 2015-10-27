@@ -13,8 +13,8 @@ Template.housesSlide.helpers({
     if (GoogleMaps.loaded()) {
       // Map initialization options
       return {
-        center: new google.maps.LatLng(60.639197, 30170803),
-        zoom: 14,
+        center: new google.maps.LatLng(60.6374815, 30.173661),
+        zoom: 16,
         mapTypeControl: false,
         streetViewControl: false,
         styles: [
@@ -402,13 +402,36 @@ Template.housesSlide.helpers({
 Template.housesSlide.onCreated(function() {
   // We can use the `ready` callback to interact with the map API once the map is ready.
   GoogleMaps.ready('botanikaMap', function(map) {
+    var bounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(60.635766, 30.170803),
+      new google.maps.LatLng(60.639197, 30.176519)
+    );
+
+    map.instance.fitBounds(bounds);
+
     // Add a marker to the map once it's ready
-    var marker = new google.maps.Marker({
-      position: map.options.center,
+    var topLeftMarker = new google.maps.Marker({
+      position: new google.maps.LatLng(60.639197, 30.170803),
       map: map.instance
     });
 
-    var overlay = Meteor.mapHelpers.addOverlay(map.instance);
+    var topRightMarker = new google.maps.Marker({
+      position: new google.maps.LatLng(60.639197, 30.176519),
+      map: map.instance
+    });
+
+    var bottomRightMarker = new google.maps.Marker({
+      position: new google.maps.LatLng(60.635766, 30.176519),
+      map: map.instance
+    });
+
+    var bottomLeftMarker = new google.maps.Marker({
+      position: new google.maps.LatLng(60.635766, 30.170803),
+      map: map.instance
+    });
+
+    var overlay = Meteor.mapHelpers.addOverlay(bounds, map.instance);
+    // overlay.setMap(map.instance);
 
     window.o = overlay;
   });

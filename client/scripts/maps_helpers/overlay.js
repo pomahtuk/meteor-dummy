@@ -1,6 +1,6 @@
 Meteor.mapHelpers = {
 
-  _initOverlaClass: function () {
+  _initOverlayClass: function () {
     BotanikaOverlay.prototype = new google.maps.OverlayView();
 
     /** @constructor */
@@ -27,8 +27,9 @@ Meteor.mapHelpers = {
     BotanikaOverlay.prototype.onAdd = function() {
 
       var div = document.createElement('div');
-      div.style.borderStyle = 'none';
-      div.style.borderWidth = '0px';
+      div.style.borderStyle = 'solid';
+      div.style.borderColor = 'red';
+      div.style.borderWidth = '1px';
       div.style.position = 'absolute';
 
       // Create the img element and attach it to the div.
@@ -36,7 +37,9 @@ Meteor.mapHelpers = {
       img.src = this.image_;
       img.style.width = '100%';
       img.style.height = '100%';
+      img.style.left = '0px';
       img.style.position = 'absolute';
+
       div.appendChild(img);
 
       this.div_ = div;
@@ -77,31 +80,29 @@ Meteor.mapHelpers = {
     return BotanikaOverlay;
   },
 
-  addOverlay: function (map) {
-
-    BotanikaOverlay = this._initOverlaClass();
+  addOverlay: function (bounds, map) {
     // var imageBounds = {
     //   north: 60.639197,
     //   south: 60.635766,
-    //   east: 30.170803,
-    //   west: 30.176519
+    //   east: 30.176519,
+    //   west: 30.170803
     // };
+    //
+    // var overlay = new google.maps.GroundOverlay('/img/botanika_plan.svg', imageBounds);
+    // overlay.setMap(map);
 
-    var bounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(60.639197, 30.176519),
-      new google.maps.LatLng(60.635766, 30.170803)
-    );
+    BotanikaOverlay = this._initOverlayClass();
 
-    // The photograph is courtesy of the U.S. Geological Survey.
-    var srcImage = '/img/genplan.png';
+    // var bounds = new google.maps.LatLngBounds(
+    //   new google.maps.LatLng(60.635766, 30.170803),
+    //   new google.maps.LatLng(60.639197, 30.176519)
+    // );
+
+    var srcImage = '/img/botanika_plan.svg';
 
     // The custom BotanikaOverlay object contains the USGS image,
     // the bounds of the image, and a reference to the map.
     var overlay = new BotanikaOverlay(bounds, srcImage, map);
-
-    // historicalOverlay = new google.maps.GroundOverlay('/img/genplan.png', imageBounds);
-
-    overlay.setMap(map);
 
     return overlay;
   }
