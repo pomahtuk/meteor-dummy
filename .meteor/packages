@@ -44,3 +44,4 @@ ccorcos:transitioner
 useraccounts:core
 useraccounts:bootstrap
 useraccounts:iron-routing
+dburles:google-maps

@@ -4,12 +4,12 @@
 	padding: 0;
     width: 100%;
     position: absolute;
-    left: 0px;
-	bottom: 0px;
+    left: 0;
+	bottom: 0;
 }
 
 .botanika-contact-item {
-	margin: 0px 0px 30px 0;
+	margin: 0 0 30px 0;
 	color: #fff;
 	font-size: 22px;
 	line-height: 26px;
@@ -18,17 +18,17 @@
 .botanika-contact-item--image {
 	display: block;
 	margin: 0 auto 10px auto;
-	width: 57px;
-	height: 62px;
-	background: url('/img/contact_pics.png');
+	width: 68px;
+	height: 70px;
+	background: url('/img/contact_pics.svg');
 }
 
 .botanika-contact-item--image__adress {
-	background-position: 0px -66px;
-	height: 82px;
+	background-position: 0 -70px;
+	height: 81px;
 }
 
 .botanika-contact-item--image__mail {
-    background-position: 0px -149px;
-    height: 42px;
+	background-position: 0 -151px;
+	height: 50px;
 }

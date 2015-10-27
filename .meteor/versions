@@ -45,6 +45,7 @@ cfs:worker@0.1.3
 check@1.0.6
 coffeescript@1.0.10
 dburles:collection-helpers@1.0.3
+dburles:google-maps@1.1.5
 ddp@1.2.2
 ddp-client@1.2.1
 ddp-common@1.2.1
