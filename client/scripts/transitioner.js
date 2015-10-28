@@ -43,7 +43,7 @@ function registerUpTransition(params) {
 }
 
 // rougth representation of menu structure
-var routesArray = ['main', 'pages' ,'houses', 'evolution', 'pages', 'contacts']
+var routesArray = ['main', 'houses', 'infrastructure', 'evolution', 'lab', 'contacts']
 
 $.each(routesArray, function (i, route) {
   // starting from next one
