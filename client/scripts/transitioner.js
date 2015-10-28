@@ -58,26 +58,60 @@ $.Velocity.RegisterEffect('transition.slideUp', {
 });
 
 Transitioner.default({
-  in: 'transition.slideUp',
-  out: 'transition.slideUpOut'
+  in: ['fadeIn', {duration: animationInDuration, display: 'flex'}],
+  out: ['fadeOut', {duration: animationInDuration }]
 });
 
-// TODO: find a way to specify default transition not touching initial state
-
-Transitioner.transition({
-    fromRoute: 'main',
-    toRoute: 'contacts',
+function registerDownTransition(params) {
+  Transitioner.transition({
+    fromRoute: params.fromRoute,
+    toRoute: params.toRoute,
     velocityAnimation: {
-        in: 'transition.slideUp',
-        out: 'transition.slideUpOut',
+      in: 'transition.slideDown',
+      out: 'transition.slideDownOut'
     }
+  });
+}
+
+function registerUpTransition(params) {
+  Transitioner.transition({
+    fromRoute: params.fromRoute,
+    toRoute: params.toRoute,
+    velocityAnimation: {
+      in: 'transition.slideUp',
+      out: 'transition.slideUpOut'
+    }
+  });
+}
+
+// rougth representation of menu structure
+var routesArray = ['main', 'pages' ,'houses', 'evolution', 'pages', 'contacts']
+
+$.each(routesArray, function (i, route) {
+  // starting from next one
+  var routesLeftover = routesArray.slice(i);
+  if (routesLeftover.length > 0) {
+    // we are not at the last route
+    $.each(routesLeftover, function (j, nextRoute) {
+      registerUpTransition({
+        fromRoute: route,
+        toRoute: nextRoute
+      });
+    });
+  }
 });
+// and will go backwards
+routesArray.reverse();
 
-Transitioner.transition({
-    fromRoute: 'contacts',
-    toRoute: 'main',
-    velocityAnimation: {
-        in: 'transition.slideDown',
-        out: 'transition.slideDownOut',
-    }
+$.each(routesArray, function (i, route) {
+  var routesLeftover = routesArray.slice(i);
+  if (routesLeftover.length > 0) {
+    // we are not at the last route
+    $.each(routesLeftover, function (j, nextRoute) {
+      registerDownTransition({
+        fromRoute: route,
+        toRoute: nextRoute
+      })
+    });
+  }
 });
