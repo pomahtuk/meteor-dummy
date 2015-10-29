@@ -60,8 +60,12 @@ Template.registerHelper('getThumb', (_id, collectionRef, thumbStore) => {
 
   if (collection) {
     picture = collection.findOne(_id);
-    return picture.url({store: thumbStore});
+    if (picture) {
+      return picture.url({store: thumbStore});
+    }
   }
+
+  return null;
 });
 
 // this will render background specified by user in damin panel
