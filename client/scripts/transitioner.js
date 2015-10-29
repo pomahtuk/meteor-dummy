@@ -52,18 +52,7 @@ $.each(routesArray, function (i, route) {
     // we are not at the last route
     $.each(routesLeftover, function (j, nextRoute) {
       registerUpTransition({fromRoute: route, toRoute: nextRoute});
-    });
-  }
-});
-// and will go backwards
-routesArray.reverse();
-
-$.each(routesArray, function (i, route) {
-  var routesLeftover = routesArray.slice(i);
-  if (routesLeftover.length > 0) {
-    // we are not at the last route
-    $.each(routesLeftover, function (j, nextRoute) {
-      registerDownTransition({fromRoute: route, toRoute: nextRoute})
+      registerDownTransition({fromRoute: nextRoute, toRoute: route})
     });
   }
 });

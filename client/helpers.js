@@ -1,3 +1,47 @@
+Meteor.botanikaSwipngHelper = function (node, downRoute, upRoute) {
+  // create a simple instance
+  // by default, it only adds horizontal recognizers
+
+  var distance = 50;
+
+  var hammertime = new Hammer.Manager(node, {
+    recognizers: [
+        [Hammer.Swipe, {
+          direction: Hammer.DIRECTION_ALL,
+          threshold: 10,
+          velocity:	0.65
+        }],
+    ]
+  });
+
+  if (downRoute) {
+    hammertime.on('swipeup', function() {
+      Router.go(downRoute);
+    });
+
+    $(node).on('mousewheel', function(event) {
+      // distance = 80px wheeldown
+      if (event.deltaY < -distance) {
+        Router.go(downRoute);
+      }
+    });
+  }
+
+  if (upRoute) {
+    hammertime.on('swipedown', function() {
+      Router.go(upRoute);
+    });
+
+    $(node).on('mousewheel', function(event) {
+      // distance = 100px wheeldown
+      if (event.deltaY > distance) {
+        Router.go(upRoute);
+      }
+    });
+  }
+
+}
+
 Template.registerHelper('getDoc', function(_id, collectionRef) {
   var collection = window[collectionRef];
 
