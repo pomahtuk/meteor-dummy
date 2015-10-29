@@ -1,24 +1,24 @@
-var animationInDuration = 1000;
-var animationOutDuration = 1600;
+let animationInDuration = 1000;
+let animationOutDuration = 1600;
 
 $.Velocity.RegisterEffect('transition.slideDown', {
   defaultDuration: animationInDuration,
-  calls: [[ {translateY: ['0%', '-100%'], translateZ: 0, easing: "easeOutCubic", opacity: [1, 1]} ]]
+  calls: [[ {translateY: ['0%', '-100%'], translateZ: 0, easing: 'easeOutCubic', opacity: [1, 1]} ]]
 });
 
 $.Velocity.RegisterEffect('transition.slideDownOut', {
   defaultDuration: animationOutDuration,
-  calls: [[ {translateY: ['100%', '0%'], translateZ: 0, easing: "linear", opacity: [1, 1]} ]]
+  calls: [[ {translateY: ['100%', '0%'], translateZ: 0, easing: 'linear', opacity: [1, 1]} ]]
 });
 
 $.Velocity.RegisterEffect('transition.slideUpOut', {
   defaultDuration: animationOutDuration,
-  calls: [[ {translateY: ['-100%', '0%'], translateZ: 0, easing: "linear", opacity: [1, 1]} ]]
+  calls: [[ {translateY: ['-100%', '0%'], translateZ: 0, easing: 'linear', opacity: [1, 1]} ]]
 });
 
 $.Velocity.RegisterEffect('transition.slideUp', {
   defaultDuration: animationInDuration,
-  calls: [[ {translateY: ['0%', '100%'], translateZ: 0, easing: "easeOutCubic", opacity: [1, 1]} ]]
+  calls: [[ {translateY: ['0%', '100%'], translateZ: 0, easing: 'easeOutCubic', opacity: [1, 1]} ]]
 });
 
 Transitioner.default({
@@ -45,12 +45,12 @@ function registerUpTransition(params) {
 // rougth representation of menu structure
 var routesArray = ['main', 'houses', 'infrastructure', 'evolution', 'lab', 'contacts']
 
-$.each(routesArray, function (i, route) {
+routesArray.forEach((route, index) => {
   // starting from next one
-  var routesLeftover = routesArray.slice(i);
+  let routesLeftover = routesArray.slice(index);
   if (routesLeftover.length > 0) {
     // we are not at the last route
-    $.each(routesLeftover, function (j, nextRoute) {
+    routesLeftover.forEach((nextRoute) => {
       registerUpTransition({fromRoute: route, toRoute: nextRoute});
       registerDownTransition({fromRoute: nextRoute, toRoute: route})
     });

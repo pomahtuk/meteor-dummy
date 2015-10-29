@@ -1,4 +1,4 @@
 Template.evolutionSlide.onRendered(function () {
-  var node = this.firstNode;
+  let node = this.firstNode;
   Meteor.botanikaSwipngHelper(node, 'lab', 'infrastructure');
 });

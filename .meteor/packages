@@ -45,3 +45,5 @@ useraccounts:core
 useraccounts:bootstrap
 useraccounts:iron-routing
 dburles:google-maps
+ecmascript
+es5-shim

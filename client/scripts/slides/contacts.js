@@ -1,4 +1,4 @@
 Template.contactsSlide.onRendered(function () {
-  var node = this.firstNode;
+  let node = this.firstNode;
   Meteor.botanikaSwipngHelper(node, null, 'lab');
 });

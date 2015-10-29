@@ -2,7 +2,7 @@
 Meteor.startup(function () {
   // if (Accounts.find().count() === 0) {
   //   var users = [
-  //         {name:"Admin User",email:"pman89@ya.ru",roles:['admin']}
+  //         {name:'Admin User',email:'pman89@ya.ru',roles:['admin']}
   //       ];
   //
   //   _.each(users, function (user) {
@@ -10,7 +10,7 @@ Meteor.startup(function () {
   //
   //     id = Accounts.createUser({
   //       email: user.email,
-  //       password: "177591",
+  //       password: '177591',
   //       profile: { name: user.name }
   //     });
   //
@@ -26,14 +26,14 @@ Meteor.startup(function () {
   if (Pages.find().count() === 0) {
     var data = [
       {
-        title: "Экосистема",
-        slug: "infrastructure",
-        body: "инфраструктура",
+        title: 'Экосистема',
+        slug: 'infrastructure',
+        body: 'инфраструктура',
       },
       {
-        title: "Лаборатория",
-        slug: "lab",
-        body: "тут что-то будет",
+        title: 'Лаборатория',
+        slug: 'lab',
+        body: 'тут что-то будет',
       }
     ];
 

@@ -2,11 +2,9 @@ Meteor.mapHelpers = !Meteor.mapHelpers ? {} : Meteor.mapHelpers;
 
 $.extend(Meteor.mapHelpers, {
 
-    _initOverlayClass: function () {
-      BotanikaOverlay.prototype = new google.maps.OverlayView();
-
+    _initOverlayClass () {
       /** @constructor */
-      function BotanikaOverlay(bounds, image, map) {
+      let BotanikaOverlay = function (bounds, image, map) {
 
         // Initialize all properties.
         this.bounds_ = bounds;
@@ -21,6 +19,8 @@ $.extend(Meteor.mapHelpers, {
         // Explicitly call setMap on this overlay.
         this.setMap(map);
       }
+
+      BotanikaOverlay.prototype = new google.maps.OverlayView();
 
       /**
        * onAdd is called when the map's panes are ready and the overlay has been
@@ -82,7 +82,7 @@ $.extend(Meteor.mapHelpers, {
       return BotanikaOverlay;
     },
 
-    addOverlay: function (bounds, map) {
+    addOverlay (bounds, map) {
       // var imageBounds = {
       //   north: 60.639197,
       //   south: 60.635766,
@@ -93,18 +93,18 @@ $.extend(Meteor.mapHelpers, {
       // var overlay = new google.maps.GroundOverlay('/img/botanika_plan.svg', imageBounds);
       // overlay.setMap(map);
 
-      BotanikaOverlay = this._initOverlayClass();
+      let BotanikaOverlay = this._initOverlayClass();
 
       // var bounds = new google.maps.LatLngBounds(
       //   new google.maps.LatLng(60.635766, 30.170803),
       //   new google.maps.LatLng(60.639197, 30.176519)
       // );
 
-      var srcImage = '/img/botanika_plan.svg';
+      let srcImage = '/img/botanika_plan.svg';
 
       // The custom BotanikaOverlay object contains the USGS image,
       // the bounds of the image, and a reference to the map.
-      var overlay = new BotanikaOverlay(bounds, srcImage, map);
+      let overlay = new BotanikaOverlay(bounds, srcImage, map);
 
       return overlay;
     }

@@ -1,19 +1,12 @@
-Template.botanikaBody.onRendered(function () {
-  var slideout = new Slideout({
+Template.botanikaBody.onRendered(() => {
+  let slideout = new Slideout({
     'panel': document.getElementById('main'),
     'menu': document.getElementById('menu'),
     'padding': -300,
     'tolerance': 70
   });
 
-  document.querySelector('.js-slideout-toggle').addEventListener('click', function() {
-    slideout.toggle();
-  });
-
-  $('.menu-item-link, .menu-to-home, #main').click(function() {
-    slideout.close();
-  });
-
-  // console.log('botanika template js running');
+  $('.js-slideout-toggle').click(() => slideout.toggle());
+  $('.menu-item-link, .menu-to-home, #main').click(() => slideout.close());
 
 });
