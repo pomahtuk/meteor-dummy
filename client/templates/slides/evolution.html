@@ -2,12 +2,15 @@
   <div class="botanika-page image-slider image-slider--evolution" {{getPageAttrs pageData}}>
 
     <!-- here goes the news -->
-    <div class="botanika-news-container" data-swiper-parallax="-100">
-      {{#let news=(getAllNews)}}
-        {{#each news}}
-          {{> newsItem}}
-        {{/each}}
-      {{/let}}
+    <div class="botanika-news-container swiper-container-h" data-swiper-parallax="-300">
+      <div class="swiper-wrapper">
+        {{#let news=(getAllNews)}}
+          {{#each news}}
+            {{> newsItem}}
+          {{/each}}
+        {{/let}}
+      </div>
+      <div class="swiper-pagination-h"></div>
     </div>
 
   </div>

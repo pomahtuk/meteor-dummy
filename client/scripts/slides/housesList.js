@@ -1,8 +1,7 @@
 if (Meteor.isClient) {
   Meteor.startup(() => {
     GoogleMaps.load({
-      key: 'AIzaSyBNv33lBH_uNEKmNyhkm9nIvGcHCXjHLbk',
-      signed_in: true
+      key: 'AIzaSyBNv33lBH_uNEKmNyhkm9nIvGcHCXjHLbk'
     });
   });
 }

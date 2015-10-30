@@ -5,7 +5,7 @@ Template.evolutionSlide.onRendered(function () {
   //     spaceBetween: 0
   // });
   Meteor.swiperV = new Swiper('.swiper-container-v', {
-    pagination: '.swiper-pagination-v',
+    // pagination: '.swiper-pagination-v',
     paginationClickable: true,
     direction: 'vertical',
     slidesPerView: 1,
