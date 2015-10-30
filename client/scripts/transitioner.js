@@ -25,34 +25,34 @@ Transitioner.default({
   in: ['fadeIn', {duration: animationInDuration, display: 'flex'}],
   out: ['fadeOut', {duration: animationInDuration }]
 });
-
-function registerDownTransition(params) {
-  Transitioner.transition({
-    fromRoute: params.fromRoute,
-    toRoute: params.toRoute,
-    velocityAnimation: {in: 'transition.slideDown', out: 'transition.slideDownOut'}
-  });
-}
-
-function registerUpTransition(params) {
-  Transitioner.transition({
-    fromRoute: params.fromRoute,
-    toRoute: params.toRoute,
-    velocityAnimation: {in: 'transition.slideUp', out: 'transition.slideUpOut'}
-  });
-}
-
-// rougth representation of menu structure
-var routesArray = ['main', 'houses', 'infrastructure', 'evolution', 'lab', 'contacts']
-
-routesArray.forEach((route, index) => {
-  // starting from next one
-  let routesLeftover = routesArray.slice(index);
-  if (routesLeftover.length > 0) {
-    // we are not at the last route
-    routesLeftover.forEach((nextRoute) => {
-      registerUpTransition({fromRoute: route, toRoute: nextRoute});
-      registerDownTransition({fromRoute: nextRoute, toRoute: route})
-    });
-  }
-});
+// 
+// function registerDownTransition(params) {
+//   Transitioner.transition({
+//     fromRoute: params.fromRoute,
+//     toRoute: params.toRoute,
+//     velocityAnimation: {in: 'transition.slideDown', out: 'transition.slideDownOut'}
+//   });
+// }
+//
+// function registerUpTransition(params) {
+//   Transitioner.transition({
+//     fromRoute: params.fromRoute,
+//     toRoute: params.toRoute,
+//     velocityAnimation: {in: 'transition.slideUp', out: 'transition.slideUpOut'}
+//   });
+// }
+//
+// // rougth representation of menu structure
+// var routesArray = ['main', 'houses', 'infrastructure', 'evolution', 'lab', 'contacts']
+//
+// routesArray.forEach((route, index) => {
+//   // starting from next one
+//   let routesLeftover = routesArray.slice(index);
+//   if (routesLeftover.length > 0) {
+//     // we are not at the last route
+//     routesLeftover.forEach((nextRoute) => {
+//       registerUpTransition({fromRoute: route, toRoute: nextRoute});
+//       registerDownTransition({fromRoute: nextRoute, toRoute: route})
+//     });
+//   }
+// });

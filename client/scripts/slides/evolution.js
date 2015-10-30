@@ -1,43 +1,40 @@
 Template.evolutionSlide.onRendered(function () {
-  let node = this.firstNode;
-  Meteor.botanikaSwipngHelper(node, 'lab', 'infrastructure');
 
-  $('.botanika-news-container').slick({
-    dots: true,
-    infinite: false,
-    speed: 300,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    variableWidth: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-      // You can unslick at a given breakpoint now by adding:
-      // settings: "unslick"
-      // instead of a settings object
-    ]
-  });
-
+  let slickInterval = setInterval(function () {
+    if ($('.botanika-news-item').length > 0) {
+      clearInterval(slickInterval);
+      $('.botanika-news-container').slick({
+        dots: true,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        adaptiveHeight: true,
+        arrows: false,
+        // centerMode: true,
+        variableWidth: true,
+        // mobileFirst: true,
+        // width: 300,
+        swipeToSlide: true,
+        // variableWidth: true,
+        responsive: [
+          {
+            breakpoint: 1080,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            }
+          },
+          {
+            breakpoint: 750,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          }
+        ]
+      });
+    }
+  }, 50);
 
 });

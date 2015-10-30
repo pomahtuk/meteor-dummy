@@ -1,6 +1,10 @@
 <template name="botanikaPage">
-  <div class="botanika-page">
-    <h1>{{ pageData.title }}</h1>
-    <p>{{ pageData.body }}</p>
-  </div>
+  {{#if slug}}
+    {{#let pageData=(getPageData slug)}}
+      <div class="botanika-page" {{getPageAttrs pageData}}>
+        <h1>{{ pageData.title }}</h1>
+        <p>{{{ pageData.body }}}</p>
+      </div>
+    {{/let}}
+  {{/if}}
 </template>

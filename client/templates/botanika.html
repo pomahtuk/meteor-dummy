@@ -12,11 +12,11 @@
       {{> botanikaLogo }}
     {{/if}}
 
-    <main id="main" class="main-panel slideout-panel">
-      <div class="botanika-page image-slider image-slider--index">
-        {{#transitioner}}
+    <main id="main" class="main-panel slideout-panel swiper-container swiper-container-v">
+      <div class="swiper-wrapper">
+
           {{> yield}}
-        {{/transitioner}}
+
       </div>
     </main>
 

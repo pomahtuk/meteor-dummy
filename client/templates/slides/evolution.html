@@ -1,11 +1,13 @@
 <template name="evolutionSlide">
-  <div class="botanika-page image-slider image-slider--evolution"  {{getPageAttrs pageData}}>
+  <div class="botanika-page image-slider image-slider--evolution" {{getPageAttrs pageData}}>
 
     <!-- here goes the news -->
-    <div class="botanika-news-container">
-      {{#each news}}
-        {{> newsItem}}
-      {{/each}}
+    <div class="botanika-news-container" data-swiper-parallax="-100">
+      {{#let news=(getAllNews)}}
+        {{#each news}}
+          {{> newsItem}}
+        {{/each}}
+      {{/let}}
     </div>
 
   </div>

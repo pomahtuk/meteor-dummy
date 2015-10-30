@@ -1,7 +1,7 @@
 <template name="indexSlide">
   <div class="botanika-page image-slider image-slider--{{action}}" {{getPageAttrs pageData}}>
     <div class="index-content">
-      <div class="index-text--catchy">
+      <div class="index-text--catchy" data-swiper-parallax="-300">
         НОВАЯ ФОРМА ЖИЗНИ
         <br/>
         ПЕЙЗАЖНЫЙ КОТТЕДЖНЫЙ ПОСЕЛОК
@@ -9,13 +9,13 @@
         КЛУБНОГО ТИПА
       </div>
 
-      <img src="/img/logo.svg" class="index-text--logo" alt="ботаника">
+      <img src="/img/logo.svg" class="index-text--logo" alt="ботаника"  data-swiper-parallax="-200" >
 
-      <div class="index-next-button__before"></div>
-      <a href="{{pathFor route='houses'}}" data-slide-name="gerbariy" class="index-next-button">
+      <div class="index-next-button__before" data-swiper-parallax="-100"></div>
+      <a href="#" class="index-next-button" data-swiper-parallax="-100">
         гербарий
       </a>
-      <div class="index-next-button__after"></div>
+      <div class="index-next-button__after" data-swiper-parallax="-100"></div>
 
     </div>
   </div>
