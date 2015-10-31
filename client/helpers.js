@@ -6,6 +6,7 @@ Template.registerHelper('getDoc', (_id, collectionRef) => {
   }
 });
 
+Template.registerHelper('prettifyDate', (timestamp) => moment(timestamp).format('DD.MM.YYYY'));
 
 Template.registerHelper('getPageData', (slug) => Pages.findOne({slug: slug}));
 

@@ -47,7 +47,7 @@
     "IS_SERVER": true,
     "google": true,
     "$": true,
-    "Hammer": true,
+    "Swiper": true,
     "Meteor": true,
     "Slideout": true,
     "Transitioner": true,
@@ -56,6 +56,7 @@
     "AccountsTemplates": true,
     "LaunchScreen": true,
     "AdminConfig": true,
+    "moment": true,
 
     "Pages": true,
     "Houses": true,

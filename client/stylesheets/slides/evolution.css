@@ -7,6 +7,19 @@
   font-size: 0;
 }
 
+/**
+ * Medium Screens
+ */
+@media all and (min-width:40em) {
+  .botanika-news-container  {
+    padding: 75px 20px 40px 20px;
+  }
+}
+
+.swiper-slide.botanika-news-slider-wrapper {
+  width: 300px;
+}
+
 .botanika-news-item {
   outline: none;
   font-size: 14px;
@@ -18,10 +31,6 @@
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.5) 1px 2px 10px 1px;
   color: #333333;
-}
-
-.botanika-news-item.swiper-slide {
-  width: 300px;
 }
 
 .botanika-news-item--image {
@@ -55,21 +64,23 @@ div.swiper-pagination-h {
 }
 
 span.swiper-pagination-bullet {
+  box-sizing: border-box;
   opacity: 1;
   font-size: 0;
   line-height: 0;
   margin: 5px;
-  width: 13px;
-  height: 13px;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
   border: 1.5px solid white;
   background: transparent;
   border-radius: 15px;
   padding: 0;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, .5) 0 1px 2px 1px;
+  box-shadow: rgba(0, 0, 0, .5) 0 0 5px 3px, inset rgba(0,0,0,.5) 0 0 2px 0.5px;
 }
 
 span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   background: #d9d900;
+  border: 2px solid white;
 }

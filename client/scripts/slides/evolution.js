@@ -5,8 +5,10 @@ Template.evolutionSlide.onRendered(function () {
     slidesPerView: 'auto',
     paginationClickable: true,
     spaceBetween: 20,
-    grabCursor: true,
-    roundLengths: true
+    roundLengths: true,
+    grabCursor: false,
+    // threshold: 50,
+    // shortSwipes: false
   });
 
 });

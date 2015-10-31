@@ -1,14 +1,16 @@
 <template name="newsItem">
-  <div class="botanika-news-item swiper-slide">
-    <span class="botanika-news-item--date">{{ createdAt }}</span>
-    <h2 class="botanika-news-item--title">{{ title }}</h2>
+  <div class="swiper-slide botanika-news-slider-wrapper">
+    <div class="botanika-news-item">
+      <span class="botanika-news-item--date">{{prettifyDate createdAt}}</span>
+      <h2 class="botanika-news-item--title">{{ title }}</h2>
 
-    {{#let picUrl=(getThumb picture 'NewsPictures' 'thumbs')}}
-      {{#if picUrl}}
-        <img src="{{picUrl}}" lass="botanika-news-item--image">
-      {{/if}}
-    {{/let}}
+      {{#let picUrl=(getThumb picture 'NewsPictures' 'thumbs')}}
+        {{#if picUrl}}
+          <img src="{{picUrl}}" lass="botanika-news-item--image">
+        {{/if}}
+      {{/let}}
 
-    <p class="botanika-news-item--text">{{{ short }}}</p>
+      <p class="botanika-news-item--text">{{{ short }}}</p>
+    </div>
   </div>
 </template>

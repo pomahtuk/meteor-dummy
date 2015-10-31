@@ -47,3 +47,4 @@ useraccounts:iron-routing
 dburles:google-maps
 ecmascript
 es5-shim
+momentjs:moment

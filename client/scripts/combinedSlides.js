@@ -14,7 +14,9 @@ Template.evolutionSlide.onRendered(function () {
     hashnav: true,
     parallax: true,
     speed: 1000,
-    grabCursor: true,
-    // mousewheelForceToAxis: true
+    grabCursor: false,
+    // threshold: 50,
+    shortSwipes: false,
+    mousewheelForceToAxis: true
   });
 });
