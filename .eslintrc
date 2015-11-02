@@ -57,6 +57,8 @@
     "LaunchScreen": true,
     "AdminConfig": true,
     "moment": true,
+    "Snap": true,
+    "L": true,
 
     "Pages": true,
     "Houses": true,

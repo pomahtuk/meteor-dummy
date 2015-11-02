@@ -16,7 +16,7 @@ Template.evolutionSlide.onRendered(function () {
     speed: 1000,
     grabCursor: false,
     // threshold: 50,
-    shortSwipes: false,
+    // shortSwipes: false,
     mousewheelForceToAxis: true
   });
 });
