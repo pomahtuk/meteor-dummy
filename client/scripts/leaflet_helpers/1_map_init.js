@@ -10,8 +10,10 @@ class BotanikaMap {
     });
 
     this.createMap();
+    this.addPlanOverlay();
     // temp for devmode
     this.addBoundingMarkers();
+    this.addHousesMarkers();
   }
 
   createMap() {
@@ -59,6 +61,61 @@ class BotanikaMap {
   addPlanOverlay() {
     let {map, overlayImage, overlayBounds} = {this};
     let overlay = L.imageOverlay(overlayImage, overlayBounds).addTo(map);
+  }
+
+  createHouseIcon(houseType) {
+    let DEFAULTS = {
+      iconUrl: 'my-icon.png',
+      iconRetinaUrl: 'my-icon@2x.png',
+      iconSize: [38, 95],
+      iconAnchor: [22, 94],
+      // shadowUrl: 'my-icon-shadow.png',
+      // shadowRetinaUrl: 'my-icon-shadow@2x.png',
+      // shadowSize: [68, 95],
+      // shadowAnchor: [22, 94]
+    }, iconSettings;
+    switch (houseType) {
+      case 'azalia':
+        iconSettings = $.exted(DEFAULTS, {
+          iconSize: [38, 95],
+          iconAnchor: [22, 94],
+        });
+        break;
+      default:
+        iconSettings = $.exted(DEFAULTS, {
+          iconSize: [38, 95],
+          iconAnchor: [22, 94],
+        });
+    }
+
+    return L.icon(iconSettings);
+  }
+
+  addHousesMarkers() {
+    let map = this.map,
+      houses = [];
+
+    houses.forEach((house, index) => {
+      let houseIcon = createHouseIcon(house.type),
+        point = house.coordinates,
+        markerOptions = {
+          icon: houseIcon,
+          riseOnHover: true,
+          data: house
+        };
+
+      let marker = L.marker(point, markerOptions).addTo(map);
+
+      marker.on('mouseover', function() {
+        console.log('mouse out');
+        // run morph animation
+      });
+      marker.on('mouseout', function() {
+        console.log('mouse out');
+        // run morph animation reverse
+      });
+      // bound marker events
+    });
   }
 }
 
