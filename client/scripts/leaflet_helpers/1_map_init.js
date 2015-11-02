@@ -2,6 +2,7 @@ class BotanikaMap {
   constructor() {
     $.extend(this, {
       center: [60.6374815, 30.173661],
+      openedMarkerPath: 'M36.1832892,69.7832974 L34.030854,93.3661157 L31.8685076,69.6762055 C14.0139681,68.1381212 0,53.1560614 0,34.9033058 L0,34.9033058 C0,15.6279615 15.6279615,0 34.9033058,0 C54.1786502,0 69.8066116,15.6279615 69.8066116,34.9033058 C69.8066116,53.7500079 54.8657729,69.1096934 36.1832892,69.7832974 L36.1832892,69.7832974 L36.1832892,69.7832974 Z',
       zoom: 16,
       overlayBounds: [[60.635766, 30.170803], [60.639197, 30.176519]],
       overlayImage: '/img/botanika_plan.svg',
@@ -9,14 +10,14 @@ class BotanikaMap {
       styles
     });
 
-    this.createMap();
+    this._createMap();
     this.addPlanOverlay();
     // temp for devmode
-    this.addBoundingMarkers();
+    this._addBoundingMarkers();
     this.addHousesMarkers();
   }
 
-  createMap() {
+  _createMap() {
     let map = new L.Map('map', {
       center: this.center,
       zoom: this.zoom,
@@ -35,17 +36,17 @@ class BotanikaMap {
     });
     zoomControl.addTo(map);
 
-    map.fitBounds(overlayBounds);
+    map.fitBounds(this.overlayBounds);
 
     this.map = map;
   }
 
-  addBoundingMarkers() {
+  _addBoundingMarkers() {
     let map = this.map;
     let boundingIcon = L.icon({
-      iconUrl: 'my-icon.png',
-      iconRetinaUrl: 'my-icon@2x.png',
-      shadowUrl: 'my-icon-shadow.png',
+      iconUrl: '/images/marker-icon.png',
+      iconRetinaUrl: '/images/marker-icon-2x.png',
+      shadowUrl: '/images/marker-shadow.png',
     });
 
     let markerOptions = {
@@ -56,48 +57,49 @@ class BotanikaMap {
     this.boundingPoints.forEach((point) => {
       L.marker(point, markerOptions).addTo(map);
     });
+
+    L.marker([60.6374815, 30.173661], markerOptions).addTo(map);
   }
 
   addPlanOverlay() {
-    let {map, overlayImage, overlayBounds} = {this};
-    let overlay = L.imageOverlay(overlayImage, overlayBounds).addTo(map);
+    let overlay = L.imageOverlay(this.overlayImage, this.overlayBounds).addTo(this.map);
   }
 
-  createHouseIcon(houseType) {
-    let DEFAULTS = {
-      iconUrl: 'my-icon.png',
-      iconRetinaUrl: 'my-icon@2x.png',
-      iconSize: [38, 95],
-      iconAnchor: [22, 94],
-      // shadowUrl: 'my-icon-shadow.png',
-      // shadowRetinaUrl: 'my-icon-shadow@2x.png',
-      // shadowSize: [68, 95],
-      // shadowAnchor: [22, 94]
-    }, iconSettings;
+  _createHouseIcon(houseType) {
+    let iconHeight = 45,
+      transformRatio = 0.5173008391769169,
+      iconOptions = {},
+      iconClass = `botanika-house-marker botanika-house-${houseType}`,
+      idAttr = `svg-${houseType}`,
+      DEFAULTS = {
+        className: iconClass,
+        iconSize: [100, 100],
+        html: `<div class="svg-holder"><svg id="${idAttr}" width="70" height="87"></svg></div>`
+      }
+
     switch (houseType) {
       case 'azalia':
-        iconSettings = $.exted(DEFAULTS, {
-          iconSize: [38, 95],
-          iconAnchor: [22, 94],
+        $.extend(iconOptions, DEFAULTS, {
+          html: `<div class="svg-holder"><svg id="${idAttr}" width="${69.26 * transformRatio}" height="45"></svg></div>`,
+          scaleString: `S${transformRatio},${transformRatio},0,0T-12,0`,
         });
+
         break;
       default:
-        iconSettings = $.exted(DEFAULTS, {
-          iconSize: [38, 95],
-          iconAnchor: [22, 94],
-        });
+        $.extend(iconOptions, DEFAULTS)
     }
 
-    return L.icon(iconSettings);
+    return L.divIcon(iconOptions);
   }
 
-  addHousesMarkers() {
-    let map = this.map,
-      houses = [];
+  addHousesMarkers(houses = []) {
+    let map = this.map;
 
     houses.forEach((house, index) => {
-      let houseIcon = createHouseIcon(house.type),
-        point = house.coordinates,
+      let point = house.coordinates,
+        houseIcon = this._createHouseIcon(house.type),
+        iconClass = `botanika-house-marker botanika-house-${house.type}`,
+        idAttr = `svg-${house.type}`,
         markerOptions = {
           icon: houseIcon,
           riseOnHover: true,
@@ -106,13 +108,37 @@ class BotanikaMap {
 
       let marker = L.marker(point, markerOptions).addTo(map);
 
+      let snap = Snap(`#${idAttr}`),
+        openedTransformRatio = 0.6446067898581865,
+        markerPath = snap.path(paths[house.type]).attr({
+          fill: '#85b200',
+          id: `marker-${house.type}`,
+        }).transform(houseIcon.options.scaleString),
+        openedMarkerPath = snap.path(this.openedMarkerPath).attr({
+          fill: '#85b200',
+          class: 'marker-open-svg',
+          id: `marker-open-${house.type}`,
+        }).transform(`S${openedTransformRatio},${openedTransformRatio},0,0,T-14,0`);
+
+      marker.animationPlayer = TweenLite.to(`#marker-${house.type}`, 0.5, {
+        morphSVG: `#marker-open-${house.type}`,
+        paused: true,
+        // onComplete: - draw the rest?
+        // onReverseComplete: initial state?
+      });
+
+      marker.animationPlayer.seek(0);
+
       marker.on('mouseover', function() {
-        console.log('mouse out');
+        console.log('mouse in');
         // run morph animation
+        // markerPath.animate({transform: 's2,2,0,0'});
+        this.animationPlayer.play();
       });
       marker.on('mouseout', function() {
         console.log('mouse out');
         // run morph animation reverse
+        this.animationPlayer.reverse();
       });
       // bound marker events
     });

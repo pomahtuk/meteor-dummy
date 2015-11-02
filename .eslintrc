@@ -59,6 +59,10 @@
     "moment": true,
     "Snap": true,
     "L": true,
+    "BotanikaMap": true,
+    "styles": true,
+    "paths": true,
+    "TweenLite": true,
 
     "Pages": true,
     "Houses": true,
