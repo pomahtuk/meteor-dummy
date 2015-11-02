@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="70px" height="94px" viewBox="0 0 70 94" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
     <!-- Generator: Sketch 3.4 (15588) - http://www.bohemiancoding.com/sketch -->
-    <title>opened_marker</title>
+    <title>Shape</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="villa_iw" sketch:type="MSLayerGroup" fill="#85B100">
-            <g id="Page-1" sketch:type="MSShapeGroup">
-                <g id="villa_iw">
-                    <g id="opened_marker">
-                        <path d="M36.1832892,69.7832974 L34.030854,93.3661157 L31.8685076,69.6762055 C14.0139681,68.1381212 0,53.1560614 0,34.9033058 L0,34.9033058 C0,15.6279615 15.6279615,0 34.9033058,0 C54.1786502,0 69.8066116,15.6279615 69.8066116,34.9033058 C69.8066116,53.7500079 54.8657729,69.1096934 36.1832892,69.7832974 L36.1832892,69.7832974 L36.1832892,69.7832974 Z" id="Shape"></path>
-                    </g>
-                </g>
-            </g>
+        <g id="flowers" sketch:type="MSLayerGroup" transform="translate(-23.000000, 0.000000)" fill="#85B100">
+            <path d="M59.1832892,69.7832974 L57.030854,93.3661157 L54.8685076,69.6762055 C37.0139681,68.1381212 23,53.1560614 23,34.9033058 L23,34.9033058 C23,15.6279615 38.6279615,0 57.9033058,0 C77.1786502,0 92.8066116,15.6279615 92.8066116,34.9033058 C92.8066116,53.7500079 77.8657729,69.1096934 59.1832892,69.7832974 L59.1832892,69.7832974 L59.1832892,69.7832974 Z" id="Shape" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>
