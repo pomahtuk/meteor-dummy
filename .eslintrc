@@ -63,8 +63,7 @@
     "styles": true,
     "paths": true,
     "TweenLite": true,
-    "schemaPaths": true,
-    "titlePaths": true,
+    "MorphSVGPlugin": true,
 
     "Pages": true,
     "Houses": true,
