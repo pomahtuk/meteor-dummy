@@ -2,8 +2,6 @@ class BotanikaMap {
   constructor() {
     $.extend(this, {
       center: [60.6374815, 30.173661],
-      openedMarkerPath: 'M60.1832892,69.7832974 L58.030854,93.3661157 L55.8685076,69.6762055 C38.0139681,68.1381212 24,53.1560614 24,34.9033058 L24,34.9033058 C24,15.6279615 39.6279615,0 58.9033058,0 C78.1786502,0 93.8066116,15.6279615 93.8066116,34.9033058 C93.8066116,53.7500079 78.8657729,69.1096934 60.1832892,69.7832974 L60.1832892,69.7832974 L60.1832892,69.7832974 Z',
-      openedMerkerBorderStr: 'M37.654999,0.621349862 C58.1344971,0.621349862 74.7399981,17.226584 74.7399981,37.7060606 C74.7399981,58.1853994 58.1344971,74.7906336 37.654999,74.7906336 C17.1755009,74.7906336 0.569999933,58.1853994 0.569999933,37.7060606 C0.569999933,17.226584 17.1755009,0.621349862 37.654999,0.621349862 Z',
       zoom: 16,
       overlayBounds: [[60.635766, 30.170803], [60.639197, 30.176519]],
       overlayImage: '/img/botanika_plan.svg',
@@ -160,7 +158,7 @@ class BotanikaMap {
         'stroke-width': '0.3528',
         id: `marker-house-${house.type}-border`
       }).transform(house.transforms.borderTransform),
-      villaShapeImg = snap.paper.image('http://botanika-land.com/img/image@2x.png', 25, 157, 98, 48).attr({
+      villaShapeImg = snap.paper.image('/img/image@2x.png', 25, 157, 98, 48).attr({
         opacity: 0,
         id: `marker-${house.type}-villa`,
       }).transform(house.transforms.villaImgShapeTransform),
