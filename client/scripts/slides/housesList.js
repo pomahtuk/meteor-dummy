@@ -9,6 +9,14 @@ Template.housesSlide.onCreated(() => {
 
 Template.housesSlide.onRendered(function () {
   if (Meteor.isClient) {
+
+    let typesArray = [
+      'azalia', 'astra', 'hiacint', 'gladiolus', 'gasmine', 'iris', 'camalia',
+      'kolokolchik', 'clover', 'lavanda', 'landish', 'lotos', 'lilia',
+      'magnolia', 'margaritka', 'narcis', 'orchid', 'pion', 'podsneznik',
+      'sunflover', 'rose', 'camomile', 'tulip', 'chrizantema', 'edelveise'
+    ];
+
     let botanikaMap = new BotanikaMap();
     botanikaMap.addHousesMarkers([
       {

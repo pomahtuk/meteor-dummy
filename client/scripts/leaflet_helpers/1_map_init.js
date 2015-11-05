@@ -124,7 +124,7 @@ class BotanikaMap {
       let openedMarkerCircle = snap.paper.circle(59, 35, 35).attr({
           id: `marker-${house.type}-open-circle`
         }),
-        openedMarkerLeg = snap.paper.polygon([55.5,70, 60.5,70, 58,94]).attr({
+        openedMarkerLeg = snap.paper.polygon([55.5,69, 60.5,69, 58,94]).attr({
           id: `marker-${house.type}-open-leg`
         });
       MorphSVGPlugin.convertToPath(`#marker-${house.type}-open-circle`);
