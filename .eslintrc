@@ -64,6 +64,7 @@
     "paths": true,
     "TweenLite": true,
     "MorphSVGPlugin": true,
+    "Kadira": true,
 
     "Pages": true,
     "Houses": true,

@@ -1,5 +1,5 @@
 class BotanikaMap {
-  constructor() {
+  constructor(isAdmin = false) {
     $.extend(this, {
       center: [60.6374815, 30.173661],
       zoom: 16,
@@ -13,7 +13,7 @@ class BotanikaMap {
     this.addPlanOverlay();
     // temp for devmode
     this._addBoundingMarkers();
-    this.addHousesMarkers();
+    //this.addHousesMarkers();
   }
 
   _createMap() {
@@ -91,26 +91,13 @@ class BotanikaMap {
         iconOptions: {
           iconHeight: 60,
           className: `botanika-house-marker botanika-house-${houseType}`,
-          iconSize: [150, 220],
-          iconAnchor: [75, 220],
+          iconSize: [50, 60],
+          iconAnchor: [25, 60],
           html: `<svg id="svg-${houseType}" width="150" height="220"></svg>`
         }
       };
 
-    switch (houseType) {
-      case 'azalia':
-        $.extend(DEFAULTS.transforms, {
-          houseTransform: `S${transformRatio},${transformRatio},0,0t48.2,235`,
-          animatedTransform: `s${scaleRatio},${scaleRatio},t8,40`,
-
-          openTransform: `S${openedTransformRatio},${openedTransformRatio},0,0,t64.75,275`,
-          openAnimatedTransform: `S${scaleRatio},${scaleRatio},0,0,t-21.45,17.90`,
-        })
-        $.extend(house, DEFAULTS);
-        break;
-      default:
-        $.extend(house, DEFAULTS);
-    }
+    $.extend(house, DEFAULTS);
 
   }
 
@@ -190,25 +177,42 @@ class BotanikaMap {
         id: `marker-${house.type}-title-group`
       }).transform(house.transforms.villaTitleTransform);
 
-    let animationPlayer = TweenLite.to(`#marker-${house.type}`, 0.3, {
-      morphSVG: `#marker-open-${house.type}`,
-      paused: true,
-      onComplete: finalizeAnim
-    });
-    animationPlayer.seek(0);
+    house.svgRelatedProperties = {
+      //snap,
+      villaTitle,
+      animationPlayer: TweenLite.to(`#marker-${house.type}`, 0.3, {
+        morphSVG: `#marker-open-${house.type}`,
+        paused: true,
+        onComplete: finalizeAnim.bind(house)
+      }).seek(0),
+      markerOpened: false,
+      markerPath,
+      openedMarkerPath,
+      openedMarkerBorder,
+      villaShapeImg,
+      mouseCatchingTriangle,
+      animationInProgress,
+      animationSpeed,
+      finalizeAnim,
+      runAnim,
+      resetAnim,
+    };
 
     function finalizeAnim() {
-      villaShapeImg.animate({transform: house.transforms.villaImgShapeAnimatedTransform}, animationSpeed);
-      villaTitle.animate({transform: house.transforms.villaTitleAnimatedTransform}, animationSpeed);
-      openedMarkerBorder.animate({transform: house.transforms.borderAnimatedTransform}, animationSpeed);
+      let {villaShapeImg, villaTitle, openedMarkerBorder, markerPath, openedMarkerPath, animationSpeed, animationInProgress} = this.svgRelatedProperties,
+        {villaImgShapeAnimatedTransform, villaTitleAnimatedTransform, borderAnimatedTransform, animatedTransform, openAnimatedTransform} = this.transforms;
+
+      villaShapeImg.animate({transform: villaImgShapeAnimatedTransform}, animationSpeed);
+      villaTitle.animate({transform: villaTitleAnimatedTransform}, animationSpeed);
+      openedMarkerBorder.animate({transform: borderAnimatedTransform}, animationSpeed);
       setTimeout(() => {
         villaShapeImg.animate({opacity: 1}, animationSpeed / 2);
         villaTitle.animate({opacity: 1}, animationSpeed / 2);
         openedMarkerBorder.animate({opacity: 1}, animationSpeed / 2);
       }, animationSpeed / 2);
 
-      markerPath.animate({transform: house.transforms.animatedTransform}, animationSpeed, () => {
-        openedMarkerPath.transform(house.transforms.openAnimatedTransform);
+      markerPath.animate({transform: animatedTransform}, animationSpeed, () => {
+        openedMarkerPath.transform(openAnimatedTransform);
         openedMarkerPath.attr({
           class: 'marker-open-svg marker-open-svg--visible'
         });
@@ -217,18 +221,27 @@ class BotanikaMap {
         });
 
         animationInProgress = false;
-        allreadyAnimated = true;
+        this.svgRelatedProperties.markerOpened = true;
       });
     }
 
     function runAnim() {
-      if (!animationInProgress && !allreadyAnimated) {
+      let {animationInProgress, animationPlayer, markerOpened} = this.svgRelatedProperties;
+      if (!animationInProgress && !markerOpened) {
+        $(this.marker._icon).addClass('show-overflow');
         animationInProgress = true;
         animationPlayer.play();
       }
     }
 
     function resetAnim(immediate = false) {
+      let {animationInProgress, villaShapeImg, villaTitle, openedMarkerBorder, animationSpeed, openedMarkerPath, markerPath, animationPlayer} = this.svgRelatedProperties,
+        {villaTitleTransform, villaImgShapeTransform, borderTransform, openTransform} = this.transforms;
+
+      if (animationInProgress || !this.svgRelatedProperties.markerOpened) {
+        return true;
+      }
+
       animationInProgress = true;
 
       if (immediate) {
@@ -240,9 +253,9 @@ class BotanikaMap {
       openedMarkerBorder.stop().animate({opacity: 0}, animationSpeed / 2);
 
       setTimeout(() => {
-        villaShapeImg.animate({transform: house.transforms.villaImgShapeTransform}, animationSpeed);
-        villaTitle.animate({transform: house.transforms.villaImgShapeTransform}, animationSpeed);
-        openedMarkerBorder.animate({transform: house.transforms.borderTransform}, animationSpeed);
+        villaShapeImg.animate({transform: villaImgShapeTransform}, animationSpeed);
+        villaTitle.animate({transform: villaTitleTransform}, animationSpeed);
+        openedMarkerBorder.animate({transform: borderTransform}, animationSpeed);
       }, animationSpeed / 2);
 
       openedMarkerPath
@@ -256,66 +269,80 @@ class BotanikaMap {
         .attr({
           class: ''
         })
-        .animate({transform: house.transforms.openTransform}, animationSpeed, () => {
-          if (immediate){
+        .animate({transform: openTransform}, animationSpeed, () => {
+          if (immediate) {
             animationPlayer.seek(0)
           } else {
             animationPlayer.reverse();
           }
-          allreadyAnimated = false;
           animationInProgress = false;
+          this.svgRelatedProperties.markerOpened = false;
+          $(this.marker._icon).removeClass('show-overflow');
         });
     }
 
+    if (Meteor.Device.isDesktop()) {
+      markerPath.mouseover(house.svgRelatedProperties.runAnim.bind(house));
+      mouseCatchingTriangle.mouseover(house.svgRelatedProperties.runAnim.bind(house));
 
-    markerPath.mouseover(runAnim);
-    mouseCatchingTriangle.mouseover(function () {
-      runAnim();
-    })
+      mouseCatchingTriangle.mouseout(function(evt) {
+        let targetId = evt.toElement ? evt.toElement.id : 'null',
+          allowedTargets = [
+            `marker-${house.type}-title`,
+            `marker-${house.type}-title-group`,
+            `marker-${house.type}-title-name`,
+            `marker-${house.type}-villa`,
+            `marker-open-${house.type}`,
+            `marker-${house.type}-border`,
+            `marker-${house.type}`,
+            `marker-${house.type}-mouse-catcher`,
+          ];
 
-    mouseCatchingTriangle.mouseout(function(evt) {
-      let targetId = evt.toElement.id,
-        allowedTargets = [
-          `marker-${house.type}-title`,
-          `marker-${house.type}-title-group`,
-          `marker-${house.type}-title-name`,
-          `marker-${house.type}-villa`,
-          `marker-open-${house.type}`,
-          `marker-${house.type}-border`,
-          `marker-${house.type}`,
-          `marker-${house.type}-mouse-catcher`,
-        ];
+        if (allowedTargets.indexOf(targetId) !== -1) {
+          return true;
+        }
 
-      if (allowedTargets.indexOf(targetId) !== -1) {
-        return true;
-      }
+        house.svgRelatedProperties.resetAnim.call(house);
+      });
 
-      resetAnim();
-    });
+      openedMarkerPath.mouseout(function(evt){
+        let targetId = evt.toElement ? evt.toElement.id : 'null',
+          allowedTargets = [
+            `marker-${house.type}-title`,
+            `marker-${house.type}-title-group`,
+            `marker-${house.type}-title-name`,
+            `marker-${house.type}-villa`,
+            `marker-open-${house.type}`,
+            `marker-${house.type}-border`,
+            `marker-${house.type}`,
+            `marker-${house.type}-mouse-catcher`,
+          ];
+        if (allowedTargets.indexOf(targetId) !== -1) {
+          return true;
+        }
+        house.svgRelatedProperties.resetAnim.call(house);
+      });
 
-    openedMarkerPath.mouseout(function(evt){
-      let targetId = evt.toElement.id,
-        allowedTargets = [
-          `marker-${house.type}-title`,
-          `marker-${house.type}-title-group`,
-          `marker-${house.type}-title-name`,
-          `marker-${house.type}-villa`,
-          `marker-open-${house.type}`,
-          `marker-${house.type}-border`,
-          `marker-${house.type}`,
-          `marker-${house.type}-mouse-catcher`,
-        ];
-      if (allowedTargets.indexOf(targetId) !== -1) {
-        return true;
-      }
-      resetAnim();
-    });
-
-    house.marker.on('mouseleave', resetAnim);
+      house.marker.on('mouseleave', house.svgRelatedProperties.resetAnim.bind(house));
+    } else {
+      house.marker.on('click', () => {
+        if (!house.svgRelatedProperties.markerOpened) {
+          let housesWithOpenedMarkers = this.houses.filter((singleHouse) => singleHouse.svgRelatedProperties.markerOpened);
+          housesWithOpenedMarkers.forEach((singleHouse) => {
+            singleHouse.svgRelatedProperties.resetAnim.call(singleHouse);
+          })
+          house.svgRelatedProperties.runAnim.call(house);
+        } else {
+          house.svgRelatedProperties.resetAnim.call(house);
+        }
+      });
+    }
   }
 
   addHousesMarkers(houses = []) {
     let map = this.map;
+
+    this.houses = houses;
 
     houses.forEach((house, index) => {
       this._assignHouseMapProperties(house);

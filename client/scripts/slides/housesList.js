@@ -1,33 +1,44 @@
-Template.housesSlide.onCreated(() => {
-  // // We can use the `ready` callback to interact with the map API once the map is ready.
-  // GoogleMaps.ready('botanikaMap', (map) => {
-  //
-  //   Meteor.mapHelpers.createBoundingMarkers(mapInstance)
-  //
-  // });
+if (Meteor.isClient) {
+  Meteor.startup(function() {
+    GoogleMaps.load();
+  });
+}
+
+Template.housesSlide.helpers({
+  placeholderOptions: function() {
+    if (GoogleMaps.loaded()) {
+      return {
+        center: new google.maps.LatLng(-37.8136, 144.9631),
+        zoom: 8
+      };
+    }
+  }
 });
 
-Template.housesSlide.onRendered(function () {
+Template.housesSlide.onCreated(function () {
   if (Meteor.isClient) {
 
-    let typesArray = [
-      'azalia', 'astra', 'hiacint', 'gladiolus', 'gasmine', 'iris', 'camalia',
-      'kolokolchik', 'clover', 'lavanda', 'landish', 'lotos', 'lilia',
-      'magnolia', 'margaritka', 'narcis', 'orchid', 'pion', 'podsneznik',
-      'sunflover', 'rose', 'camomile', 'tulip', 'chrizantema', 'edelveise'
-    ];
+    GoogleMaps.ready('placeholderMap', function(map) {
+      // clear google map instance as we are not using it, we are simply guarding our code
+      // with ready callback to make sure
+      // that our map initialized after async loading of google api
+      // to prevent render blocking
+      $('.map-placeholder-container').remove();
 
-    let botanikaMap = new BotanikaMap();
-    botanikaMap.addHousesMarkers([
-      {
-        type: 'azalia',
-        title: 'Азалия',
-        coordinates: [60.6374815, 30.173661]
-      }, {
-        type: 'astra',
-        title: 'Астра',
-        coordinates: [60.6375815, 30.174661]
-      }
-    ])
+      let botanikaMap = new BotanikaMap();
+      botanikaMap.addHousesMarkers([
+        {
+          type: 'azalia',
+          title: 'Азалия',
+          coordinates: [60.6374815, 30.173661]
+        }, {
+          type: 'astra',
+          title: 'Астра',
+          coordinates: [60.6375815, 30.174661]
+        }
+      ]);
+
+    });
+
   }
 });

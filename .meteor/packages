@@ -49,3 +49,6 @@ ecmascript
 es5-shim
 momentjs:moment
 botanika:autoform-select2
+mystor:device-detection
+meteorhacks:zones
+meteorhacks:kadira@2.20.2

@@ -1,5 +1,9 @@
 <template name="housesSlide">
   <div class="botanika-page swiper-no-swiping">
     <div id="map" style="width:100%; height:100%"></div>
+    <!-- map below is just a placeholder to load google api -->
+    <div class="map-placeholder-container">
+      {{> googleMap name="placeholderMap" options=placeholderOptions}}
+    </div>
   </div>
 </template>

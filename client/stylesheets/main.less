@@ -92,8 +92,12 @@ body.botanika-body {
 
 .botanika-house-marker {
   text-align: center;
-  width: 100px;
-  height: 100px;
+  overflow: hidden;
+  // outline: 1px solid green;
+
+  &.show-overflow {
+    overflow: visible;
+  }
 
   .marker-open-svg {
     visibility: hidden;
@@ -105,7 +109,20 @@ body.botanika-body {
 
   svg {
     overflow: visible;
+    // outline: 1px solid red;
+    position: absolute;
+    bottom: 0px;
+    left: -49px;
   }
+}
+
+.map-placeholder-container {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  transform: translateX(1px);
 }
 
 .admin-img-holder {
