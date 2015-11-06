@@ -65,6 +65,7 @@
     "TweenLite": true,
     "MorphSVGPlugin": true,
     "Kadira": true,
+    "AutoForm": true,
 
     "Pages": true,
     "Houses": true,

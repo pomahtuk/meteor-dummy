@@ -19,6 +19,7 @@ blaze-tools@1.0.4
 boilerplate-generator@1.0.4
 botanika:admin@1.2.3
 botanika:autoform-file@0.3.0
+botanika:autoform-map-input@0.0.1
 botanika:autoform-select2@2.0.2
 caching-compiler@1.0.0
 caching-html-compiler@1.0.2

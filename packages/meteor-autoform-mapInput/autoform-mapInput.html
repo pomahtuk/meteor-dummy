@@ -1,0 +1,9 @@
+<template name="afMapInput">
+  <div class="admin-map-input-holder">
+    <div id="admin_map" style="width:100%; height:100%"></div>
+    <!-- map below is just a placeholder to load google api -->
+    <div class="admin-map-placeholder-container">
+      {{> googleMap name="placeholderAdminMap" options=placeholderAdminOptions}}
+    </div>
+  </div>
+</template>
