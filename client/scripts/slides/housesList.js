@@ -26,17 +26,9 @@ Template.housesSlide.onCreated(function () {
       $('.map-placeholder-container').remove();
 
       let botanikaMap = new BotanikaMap();
-      botanikaMap.addHousesMarkers([
-        {
-          type: 'azalia',
-          title: 'Азалия',
-          coordinates: [60.6374815, 30.173661]
-        }, {
-          type: 'astra',
-          title: 'Астра',
-          coordinates: [60.6375815, 30.174661]
-        }
-      ]);
+
+      let mapHouses = Houses.find({published: true}).fetch() || [];
+      botanikaMap.addHousesMarkers(mapHouses);
 
     });
 

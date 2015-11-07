@@ -15,9 +15,14 @@ AutoForm.addInputType('mapInput', {
   template: 'afMapInput',
   valueOut: function() {
     var adminMarker = botanikaMap.getAdminData().adminMarker,
-      position = adminMarker.getLatLng();
+      result = null;
 
-    return [position.lat, position.lng];
+    if (adminMarker) {
+      var position = adminMarker.getLatLng();
+      result = [position.lat, position.lng];
+    }
+
+    return result;
   }
 });
 
@@ -35,17 +40,16 @@ Template.afMapInput.onCreated(function () {
 
       botanikaMap = new BotanikaMap('admin_map', true);
 
-      botanikaMap.addHousesMarkers([
-        {
-          type: 'azalia',
-          title: 'Азалия',
-          coordinates: [60.6374815, 30.173661]
-        }, {
-          type: 'astra',
-          title: 'Астра',
-          coordinates: [60.6375815, 30.174661]
-        }
-      ]);
+      var mapHouses = Houses.find({}).fetch();
+      // will work only for meteoradmin by yogiben
+      var currentHouse = Session.get('admin_doc') || {};
+
+      // exclude current house from map
+      mapHouses = mapHouses.filter(function (house) {
+        return house._id !== currentHouse._id;
+      });
+
+      botanikaMap.addHousesMarkers(mapHouses);
 
       template.autorun(function () {
         var data = Template.currentData();

@@ -408,6 +408,9 @@ class BotanikaMap {
     this.houses = houses;
 
     houses.forEach((house, index) => {
+      // convert input format
+      house.type = house.houseType;
+
       let point = house.coordinates,
         markerOptions = {
           icon: L.divIcon({
