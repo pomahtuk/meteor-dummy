@@ -1,5 +1,7 @@
 <template name="afMapInput">
   <div class="admin-map-input-holder">
+    <input class="af-map-input" type="hidden" name="{{name}}" value="{{value}}" data-schema-key="{{name}}">
+
     <div id="admin_map" style="width:100%; height:100%"></div>
     <!-- map below is just a placeholder to load google api -->
     <div class="admin-map-placeholder-container">

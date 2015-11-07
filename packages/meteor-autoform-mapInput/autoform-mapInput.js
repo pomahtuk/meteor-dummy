@@ -13,55 +13,11 @@ var botanikaMap = null;
 
 AutoForm.addInputType('mapInput', {
   template: 'afMapInput',
-  valueConverters: {
-    'stringArray': function (val) {
-      if (_.isArray(val)) {
-        return _.map(val, function (item) {
-          return $.trim(item);
-        });
-      }
-      return val;
-    },
-    'number': AutoForm.Utility.stringToNumber,
-    'numberArray': function (val) {
-      if (_.isArray(val)) {
-        return _.map(val, function (item) {
-          item = $.trim(item);
-          return AutoForm.Utility.stringToNumber(item);
-        });
-      }
-      return val;
-    },
-    'boolean': AutoForm.Utility.stringToBool,
-    'booleanArray': function (val) {
-      if (_.isArray(val)) {
-        return _.map(val, function (item) {
-          item = $.trim(item);
-          return AutoForm.Utility.stringToBool(item);
-        });
-      }
-      return val;
-    },
-    'date': AutoForm.Utility.stringToDate,
-    'dateArray': function (val) {
-      if (_.isArray(val)) {
-        return _.map(val, function (item) {
-          item = $.trim(item);
-          return AutoForm.Utility.stringToDate(item);
-        });
-      }
-      return val;
-    }
-  },
   valueOut: function() {
-    var data = botanikaMap.retreiveAdminData();
-    var coords = data.adminMarker.getLatLng();
-    debugger;
-  },
-  contextAdjust: function (context) {
-    console.log(context);
+    var adminMarker = botanikaMap.getAdminData().adminMarker,
+      position = adminMarker.getLatLng();
 
-    return context;
+    return [position.lat, position.lng];
   }
 });
 
@@ -93,8 +49,7 @@ Template.afMapInput.onCreated(function () {
 
       template.autorun(function () {
         var data = Template.currentData();
-
-        botanikaMap.setAdminData(botanikaMap)
+        botanikaMap.setAdminData(data);
       });
 
 

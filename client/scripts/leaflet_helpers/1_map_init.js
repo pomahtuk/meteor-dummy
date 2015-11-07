@@ -288,15 +288,6 @@ class BotanikaMap {
     });
   }
 
-  _bindAdminEvents(marker) {
-    marker.on('dragend', function(event) {
-      let marker = event.target,
-        position = marker.getLatLng();
-
-      console.log(position);
-    });
-  }
-
   _bindMapAdminEvents() {
     this.map.on('click', (evt) => {
       let {latlng} = evt;
@@ -306,8 +297,6 @@ class BotanikaMap {
         let adminMarker = this._createAdminMarker();
         // set latlng
         adminMarker.setLatLng(latlng);
-        // bind drag events
-        this._bindAdminEvents(adminMarker);
         // set reference
         this.adminObject.adminMarker = adminMarker;
       }
@@ -315,19 +304,13 @@ class BotanikaMap {
   }
 
   _createAdminMarker() {
-    // create one
     let point = [0, 0],
       markerOptions = {
         icon: L.icon({
           iconUrl: '/img/flowers/admin_marker.png',
           iconRetinaUrl: 'img/flowers/admin_marker@2x.png',
           iconSize: [35, 45],
-          iconAnchor: [17.5, 45],
-          // popupAnchor: [-3, -76],
-          // shadowUrl: 'my-icon-shadow.png',
-          // shadowRetinaUrl: 'my-icon-shadow@2x.png',
-          // shadowSize: [68, 95],
-          // shadowAnchor: [22, 94]
+          iconAnchor: [17.5, 45]
         }),
         draggable: true,
         riseOnHover: true
@@ -399,11 +382,23 @@ class BotanikaMap {
   }
 
   setAdminData(dataObj) {
-    $.extend(this.adminObject, dataObj)
-    // run some hooks
+    let {adminObject} = this;
+
+    // if ve do not have value now and template have a value
+    if (dataObj.value && dataObj.value.length === 2) {
+      // assing template coordinates to marker
+      if (!adminObject.adminMarker) {
+        // if marker not yet created
+        adminObject.adminMarker = this._createAdminMarker()
+      }
+      // update location
+      adminObject.adminMarker.setLatLng(dataObj.value);
+    }
+    // store data for now
+    $.extend(adminObject, dataObj);
   }
 
-  retreiveAdminData() {
+  getAdminData() {
     return this.adminObject;
   }
 

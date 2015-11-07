@@ -16,9 +16,34 @@ Template.afFileUpload.onCreated ->
   self = @
   @value = new ReactiveVar @data.value
 
+  @_stopInterceptValue = false
+  @_interceptValue = (ctx) =>
+    unless @_stopInterceptValue
+      t = Template.instance()
+      if t.value.get() isnt false and t.value.get() isnt ctx.value and ctx.value?.length > 0
+        t.value.set ctx.value
+        @_stopInterceptValue = true
+
+  @_insert = (file) ->
+    collection = getCollection self.data
+
+    if Meteor.userId
+      file.owner = Meteor.userId()
+
+    if typeof self.data.atts?.onBeforeInsert is 'function'
+      file = (self.data.atts.onBeforeInsert file) or file
+
+    collection.insert file, (err, fileObj) ->
+      if typeof self.data.atts?.onAfterInsert is 'function'
+        self.data.atts.onAfterInsert err, fileObj
+
+      if err then return console.log err
+      self.value.set fileObj._id
+
   @autorun ->
     _id = self.value.get()
     _id and Meteor.subscribe 'autoformFileDoc', self.data.atts.collection, _id
+
 
 Template.afFileUpload.onRendered ->
   self = @
@@ -38,6 +63,7 @@ Template.afFileUpload.helpers
   schemaKey: ->
     @atts['data-schema-key']
   previewTemplate: ->
+    # debugger
     doc = getDocument @
     if doc?.isImage()
       'afFileUploadThumbImg'
