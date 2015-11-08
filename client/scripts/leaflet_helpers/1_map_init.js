@@ -33,6 +33,9 @@ class BotanikaMap {
       openTransform: `S${openedTransformRatio},${openedTransformRatio},0,0,t64.75,275`,
       openAnimatedTransform: `S${scaleRatio},${scaleRatio},0,0,t-21.45,17.90`,
 
+      markerShadowTransform: `S0.5,0.5`,
+      markerShadowAnimatedTransform: `T-6,3,S1.5,1.5`,
+
       styles
     });
 
@@ -148,8 +151,8 @@ class BotanikaMap {
   }
 
   _finalizeAnim(marker) {
-    let {villaShapeImg, villaTitle, openedMarkerBorder, markerPath, openedMarkerPath} = marker,
-      {villaImgShapeAnimatedTransform, villaTitleAnimatedTransform, borderAnimatedTransform, animatedTransform, openAnimatedTransform, animationSpeed} = this;
+    let {villaShapeImg, villaTitle, openedMarkerBorder, markerPath, openedMarkerPath, markerShadow} = marker,
+      {villaImgShapeAnimatedTransform, villaTitleAnimatedTransform, borderAnimatedTransform, animatedTransform, openAnimatedTransform, markerShadowAnimatedTransform, animationSpeed} = this;
 
     villaShapeImg.animate({transform: villaImgShapeAnimatedTransform}, animationSpeed);
     villaTitle.animate({transform: villaTitleAnimatedTransform}, animationSpeed);
@@ -159,6 +162,8 @@ class BotanikaMap {
       villaShapeImg.animate({opacity: 1}, animationSpeed / 2);
       villaTitle.animate({opacity: 1}, animationSpeed / 2);
       openedMarkerBorder.animate({opacity: 1}, animationSpeed / 2);
+
+      markerShadow.animate({transform: markerShadowAnimatedTransform}, animationSpeed / 2);
     }, animationSpeed / 2);
 
     markerPath.animate({transform: animatedTransform}, animationSpeed, () => {
@@ -185,8 +190,8 @@ class BotanikaMap {
   }
 
   _resetAnim(marker) {
-    let {animationInProgress, villaShapeImg, villaTitle, openedMarkerBorder, openedMarkerPath, markerPath, animationPlayer, markerOpened} = marker,
-      {villaTitleTransform, villaImgShapeTransform, borderTransform, openTransform, animationSpeed} = this;
+    let {animationInProgress, villaShapeImg, villaTitle, openedMarkerBorder, openedMarkerPath, markerPath, markerShadow, animationPlayer, markerOpened} = marker,
+      {villaTitleTransform, villaImgShapeTransform, borderTransform, openTransform, markerShadowTransform, animationSpeed} = this;
 
     if (animationInProgress || !markerOpened) {
       return true;
@@ -198,10 +203,13 @@ class BotanikaMap {
     villaTitle.stop().animate({opacity: 0}, animationSpeed / 2);
     openedMarkerBorder.stop().animate({opacity: 0}, animationSpeed / 2);
 
+    villaShapeImg.animate({transform: villaImgShapeTransform}, animationSpeed);
+    villaTitle.animate({transform: villaTitleTransform}, animationSpeed);
+    openedMarkerBorder.animate({transform: borderTransform}, animationSpeed);
+
+
     setTimeout(() => {
-      villaShapeImg.animate({transform: villaImgShapeTransform}, animationSpeed);
-      villaTitle.animate({transform: villaTitleTransform}, animationSpeed);
-      openedMarkerBorder.animate({transform: borderTransform}, animationSpeed);
+      markerShadow.animate({transform: markerShadowTransform}, animationSpeed / 2);
     }, animationSpeed / 2);
 
     openedMarkerPath
@@ -312,11 +320,44 @@ class BotanikaMap {
           iconSize: [35, 45],
           iconAnchor: [17.5, 45]
         }),
+        zIndexOffset: 2000,
         draggable: true,
         riseOnHover: true
       };
 
     return L.marker(point, markerOptions).addTo(this.map);
+  }
+
+  _createShadowMarker(house) {
+    let map = this.map;
+
+    let point = house.coordinates,
+      markerOptions = {
+        icon: L.divIcon({
+          className: `botanika-house-marker-shadow botanika-house-shadow-${house.type}`,
+          iconSize: [80, 40],
+          iconAnchor: [40, 20],
+          html: `<svg id="svg-shadow-${house.type}" width="80" height="40"></svg>`
+        }),
+        zIndexOffset: 0,
+        riseOnHover: false
+      };
+
+    house.shadowMarker = L.marker(point, markerOptions).addTo(map);
+
+    this._drawSvgMarkerShadow(house);
+  }
+
+  _drawSvgMarkerShadow(house) {
+    let snap = Snap(`#svg-shadow-${house.type}`),
+      shadow = snap.filter(Snap.filter.shadow(0, 0, 3, '#000')),
+      markerShadow = snap.paper.ellipse(36, 20, 16, 3).attr({
+        filter: shadow,
+        fill: '#342A2B',
+        id: `svg-shadow-${house.type}-ellipse`
+      }).transform(this.markerShadowTransform);
+
+    house.shadowSvgElement = markerShadow;
   }
 
   _createSvgElements(marker, house) {
@@ -336,7 +377,7 @@ class BotanikaMap {
     }
 
     let openedMarkerPath = this._createOpenedMarker(snap, house),
-
+      markerShadow = house.shadowSvgElement,
       openedMarkerBorder = snap.circle(74.5, 186, 24).attr({
         stroke: '#85b200',
         fill: 'none',
@@ -365,6 +406,7 @@ class BotanikaMap {
 
     $.extend(marker, {
       markerOpened: false,
+      markerShadow,
       animationPlayer,
       villaTitle,
       markerPath,
@@ -414,16 +456,18 @@ class BotanikaMap {
       let point = house.coordinates,
         markerOptions = {
           icon: L.divIcon({
-            iconHeight: 60,
             className: `botanika-house-marker botanika-house-${house.type}`,
             iconSize: [50, 60],
             iconAnchor: [25, 60],
             html: `<svg id="svg-${house.type}" width="150" height="220"></svg>`
           }),
+          zIndexOffset: 1000,
           riseOnHover: true
         };
 
       let marker = L.marker(point, markerOptions).addTo(map);
+      // add a shadow marker
+      this._createShadowMarker(house);
 
       this._createSvgElements(marker, house);
 

@@ -1,6 +1,13 @@
 <template name="allCombined">
   <div class="swiper-slide" data-hash="index">{{> indexSlide}}</div>
   <div class="swiper-slide" data-hash="houses">{{> housesSlide}}</div>
+  {{!-- slider container for each house --}}
+  {{#each houses}}
+    <div class="swiper-slide" data-hash="{{houseType}}">
+      {{> singleHouseSlide}}
+    </div>
+  {{/each}}
+  {{!-- end --}}
   <div class="swiper-slide" data-hash="infrastructure">{{> botanikaPage slug='infrastructure'}}</div>
   <div class="swiper-slide" data-hash="evolution">{{> evolutionSlide}}</div>
   <div class="swiper-slide" data-hash="lab">{{> botanikaPage slug='lab'}}</div>

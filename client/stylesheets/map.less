@@ -1,0 +1,41 @@
+.marker-hidden {
+  visibility: hidden !important;
+}
+
+.marker-open-svg--visible {
+  visibility: visible;
+}
+
+.botanika-house-marker {
+  text-align: center;
+  overflow: hidden;
+
+  &.show-overflow {
+    overflow: visible;
+  }
+
+  .marker-open-svg {
+    visibility: hidden;
+
+    &--visible {
+      visibility: visible;
+    }
+  }
+
+  svg {
+    overflow: visible;
+    position: absolute;
+    bottom: 0px;
+    left: -49px;
+  }
+}
+
+.map-placeholder-container,
+.admin-map-placeholder-container {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  transform: translateX(1px);
+}

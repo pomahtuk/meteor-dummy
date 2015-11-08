@@ -15,6 +15,7 @@ Template.evolutionSlide.onRendered(function () {
     parallax: true,
     speed: 1000,
     grabCursor: false,
+    keyboardControl: true,
     // threshold: 50,
     // shortSwipes: false,
     mousewheelForceToAxis: true

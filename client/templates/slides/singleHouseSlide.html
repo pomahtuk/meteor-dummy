@@ -1,0 +1,20 @@
+<template name="singleHouseSlide">
+  <div class="botanika-page image-slider image-slider--house">
+
+    <div class="botanika-house-slides-container swiper-container-h" data-swiper-parallax="-300">
+      <div class="swiper-wrapper">
+        {{!-- initial slide --}}
+        {{> houseSlidesItem type='index' data=this}}
+        {{!-- all slides --}}
+        {{#each slides}}
+          {{> houseSlidesItem type='slide' data=this}}
+        {{/each}}
+        {{!-- schema slide --}}
+        {{> houseSlidesItem type='plan' data=this}}
+      </div>
+      <div class="swiper-pagination-h"></div>
+    </div>
+
+  </div>
+
+</template>

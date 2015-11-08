@@ -1,7 +1,7 @@
 Template.evolutionSlide.onRendered(function () {
 
-  var swiper = new Swiper('.swiper-container-h', {
-    pagination: '.swiper-pagination-h',
+  var swiper = new Swiper('.swiper-container-evo', {
+    pagination: '.swiper-pagination-evo',
     slidesPerView: 'auto',
     paginationClickable: true,
     spaceBetween: 20,

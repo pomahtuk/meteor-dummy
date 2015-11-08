@@ -28,7 +28,19 @@ Template.registerHelper('getThumb', (_id, collectionRef, thumbStore) => {
   return null;
 });
 
+Template.registerHelper('debug', function(optionalValue) {
+  console.log('Current Context');
+  console.log('====================');
+  console.log(this);
+ 
+  if (optionalValue) {
+    console.log('Value');
+    console.log('====================');
+    console.log(optionalValue);
+  }
+});
 
+Template.registerHelper('isEqual', (first, second) => first == second);
 
 // this will render background specified by user in damin panel
 // fallback defined in css file
