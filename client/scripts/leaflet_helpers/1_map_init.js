@@ -466,7 +466,10 @@ class BotanikaMap {
       //create regular marker
       this._createSvgElements(marker, house);
       // attach events
-      // something fishy here - check!
+      if (this.isAdmin) {
+        return true;
+      }
+      //
       if (Meteor.Device.isDesktop()) {
         this._bindDesktopEvents(marker, house);
       } else {

@@ -10,8 +10,6 @@ Template.registerHelper('prettifyDate', (timestamp) => moment(timestamp).format(
 
 Template.registerHelper('getPageData', (slug) => Pages.findOne({slug: slug}));
 
-Template.registerHelper('getAllNews', () => News.find({}));
-
 Template.registerHelper('notIndexAction', (action) => action !== 'index');
 
 Template.registerHelper('cunstructSlideAttrs', (data, type) => {
@@ -36,7 +34,10 @@ Template.registerHelper('cunstructSlideAttrs', (data, type) => {
     let image =  Attachments.findOne({_id: data[field] }),
       imageUrl = image ? image.url() : '';
     return {
-      'style': `background: radial-gradient(transparent 0%, transparent 15%, rgba(0,0,0, 0.85)), url(\'${imageUrl} + '\') center center no-repeat;`
+      'style': `background-image: radial-gradient(transparent 0%, transparent 15%, rgba(0,0,0, 0.85)), url("${imageUrl}"); 
+                background-repeat no-repeat, no-repeat; 
+                background-position: center center, center center;
+                background-size: auto, cover;`
     }
   }
 });
@@ -84,7 +85,10 @@ Template.registerHelper('getPageAttrs', (pageData) => {
     let image =  Attachments.findOne({_id: pageData.attachment }),
       imageUrl = image ? image.url() : '';
     return {
-      'style': `background: radial-gradient(transparent 0%, transparent 15%, rgba(0,0,0, 0.85)), url(\'${imageUrl} + '\') center center no-repeat;`
+      'style': `background-image: radial-gradient(transparent 0%, transparent 15%, rgba(0,0,0, 0.85)), url("${imageUrl}"); 
+                background-repeat no-repeat, no-repeat; 
+                background-position: center center, center center;
+                background-size: auto, cover;`
     }
   }
 });

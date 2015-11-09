@@ -1,7 +1,7 @@
 <template name="singleHouseSlide">
   <div class="botanika-page image-slider image-slider--house">
 
-    <div class="botanika-house-slides-container swiper-container-h" data-swiper-parallax="-300">
+    <div class="botanika-house-slides-container swiper-container-h">
       <div class="swiper-wrapper">
         {{!-- initial slide --}}
         {{> houseSlidesItem type='index' data=this}}
@@ -12,7 +12,7 @@
         {{!-- schema slide --}}
         {{> houseSlidesItem type='plan' data=this}}
       </div>
-      <div class="swiper-pagination-h"></div>
+      <div class="swiper-pagination-h" data-swiper-parallax="-300"></div>
     </div>
 
   </div>

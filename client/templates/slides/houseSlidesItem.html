@@ -1,21 +1,13 @@
 <template name="houseSlidesItem">
-  <div class="swiper-slide botanika-house-slides-slider-wrapper image-slider" {{cunstructSlideAttrs data type}}>
-    <div class="botanika-house-slide-item">
+  <div class="swiper-slide botanika-house-slides-slider-wrapper">
+    <div class="botanika-house-slide-item botanika-page image-slider" {{cunstructSlideAttrs data type}}>
       {{#if isEqual type 'index'}}
-        {{#let imgObj=(getDoc data.mainImage 'Attachments')}}
-          <img src="{{imgObj.url}}">
-        {{/let}}
-        <p class="botanika-news-item--text">{{{ data.label }}}</p>
+        <p class="botanika-house-item--text" data-swiper-parallax="-250">{{{ data.label }}}</p>
       {{else}}
         {{#if isEqual type 'plan'}}
-          {{#let imgObj=(getDoc data.planImage 'Attachments')}}
-            <img src="{{imgObj.url}}">
-          {{/let}}
+          {{!-- nothing here for now --}}
         {{else}}
-          {{#let imgObj=(getDoc data.image 'Attachments')}}
-            <img src="{{imgObj.url}}">
-          {{/let}}
-          <p class="botanika-news-item--text">{{{ data.description }}}</p>
+          <p class="botanika-house-item--text" data-swiper-parallax="-250">{{{ data.description }}}</p>
         {{/if}}
       {{/if}}
     </div>

@@ -32,7 +32,6 @@ Meteor.startup(function () {
 
                 },
                 callback: function() {
-                  console.log('playerFinshed');
                   let player = $videoElem.data('ytPlayer').player;
                   player.pauseVideo();
                   Meteor.BackgroundVideoPlayers[itemData.url] = player;
