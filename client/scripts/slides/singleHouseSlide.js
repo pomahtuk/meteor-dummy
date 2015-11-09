@@ -14,6 +14,8 @@ Template.singleHouseSlide.onRendered(function () {
     speed: 750,
     grabCursor: false,
     keyboardControl: true,
+
+    onSlideChangeEnd: Meteor.SwiperCallbackFunction
     // threshold: 50,
     // shortSwipes: false
   });

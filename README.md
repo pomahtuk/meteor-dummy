@@ -3,6 +3,10 @@
 This is a source code for Botanika-land.com website. Currently under heavy development, unstable, sometimes code is a bit odd.
 
 ## How to install
+ - run
+ ``
+ npm install fluent-ffmpeg
+ ``
  - Get the meteor from [https://www.meteor.com/install](https://www.meteor.com/install)
  - Clone this repo
  - From repository directory run ``meteor``

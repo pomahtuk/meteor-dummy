@@ -14,6 +14,33 @@ Template.registerHelper('getAllNews', () => News.find({}));
 
 Template.registerHelper('notIndexAction', (action) => action !== 'index');
 
+Template.registerHelper('cunstructSlideAttrs', (data, type) => {
+  var field;
+  switch (type) {
+    case 'index':
+      field = 'mainImage';
+      break;
+    case 'plan':
+      field = 'planImage';
+      break;
+    default:
+      field = 'image';
+  }
+
+  if (Meteor.Device.isDesktop() && data.videoUrl) {
+    // we are able to play vide only on desktop
+    return {
+      'data-url': data.videoUrl
+    }
+  } else {
+    let image =  Attachments.findOne({_id: data[field] }),
+      imageUrl = image ? image.url() : '';
+    return {
+      'style': `background: radial-gradient(transparent 0%, transparent 15%, rgba(0,0,0, 0.85)), url(\'${imageUrl} + '\') center center no-repeat;`
+    }
+  }
+});
+
 Template.registerHelper('getThumb', (_id, collectionRef, thumbStore) => {
   let collection = window[collectionRef],
     picture;
@@ -48,7 +75,8 @@ Template.registerHelper('getPageAttrs', (pageData) => {
   if (!pageData) {
     return '';
   }
-  if (pageData.videoBackground) {
+
+  if (Meteor.Device.isDesktop() && pageData.videoUrl) {
     return {
       'data-url': pageData.videoUrl
     }

@@ -53,6 +53,7 @@
   line-height: 21px;
 }
 
+div.swiper-pagination-evo,
 div.swiper-pagination-h {
   position: absolute;
   bottom: 10px;

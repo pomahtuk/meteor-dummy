@@ -1,13 +1,13 @@
 <template name="botanikaPage">
   {{#if slug}}
     {{#let pageData=(getPageData slug)}}
-      <div class="botanika-page" {{getPageAttrs pageData}}>
+      <div class="botanika-page image-slider" {{getPageAttrs pageData}}>
         <h1 data-swiper-parallax="-100">{{ pageData.title }}</h1>
         <p data-swiper-parallax="-200">{{{ pageData.body }}}</p>
       </div>
     {{/let}}
   {{else}}
-    <div class="botanika-page" {{getPageAttrs pageData}}>
+    <div class="botanika-page image-slider" {{getPageAttrs pageData}}>
       <h1 data-swiper-parallax="-100">{{ pageData.title }}</h1>
       <p data-swiper-parallax="-200">{{{ pageData.body }}}</p>
     </div>

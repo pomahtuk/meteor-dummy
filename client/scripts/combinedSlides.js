@@ -1,11 +1,5 @@
-Template.evolutionSlide.onRendered(function () {
-  // var swiperH = new Swiper('.swiper-container-h', {
-  //     pagination: '.swiper-pagination-h',
-  //     paginationClickable: true,
-  //     spaceBetween: 0
-  // });
+Template.allCombined.onRendered(function () {
   Meteor.swiperV = new Swiper('.swiper-container-v', {
-    // pagination: '.swiper-pagination-v',
     paginationClickable: true,
     direction: 'vertical',
     slidesPerView: 1,
@@ -16,8 +10,8 @@ Template.evolutionSlide.onRendered(function () {
     speed: 1000,
     grabCursor: false,
     keyboardControl: true,
-    // threshold: 50,
-    // shortSwipes: false,
-    mousewheelForceToAxis: true
+    mousewheelForceToAxis: true,
+
+    onSlideChangeEnd: Meteor.SwiperCallbackFunction
   });
 });

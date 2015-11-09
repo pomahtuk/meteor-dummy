@@ -1,5 +1,5 @@
 <template name="houseSlidesItem">
-  <div class="swiper-slide botanika-house-slides-slider-wrapper">
+  <div class="swiper-slide botanika-house-slides-slider-wrapper image-slider" {{cunstructSlideAttrs data type}}>
     <div class="botanika-house-slide-item">
       {{#if isEqual type 'index'}}
         {{#let imgObj=(getDoc data.mainImage 'Attachments')}}
