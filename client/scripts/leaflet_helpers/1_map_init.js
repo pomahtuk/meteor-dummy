@@ -316,7 +316,7 @@ class BotanikaMap {
       markerOptions = {
         icon: L.icon({
           iconUrl: '/img/flowers/admin_marker.png',
-          iconRetinaUrl: 'img/flowers/admin_marker@2x.png',
+          iconRetinaUrl: '/img/flowers/admin_marker@2x.png',
           iconSize: [35, 45],
           iconAnchor: [17.5, 45]
         }),
@@ -343,9 +343,7 @@ class BotanikaMap {
         riseOnHover: false
       };
 
-    house.shadowMarker = L.marker(point, markerOptions).addTo(map);
-
-    this._drawSvgMarkerShadow(house);
+    return L.marker(point, markerOptions).addTo(map);
   }
 
   _drawSvgMarkerShadow(house) {
@@ -415,12 +413,6 @@ class BotanikaMap {
       villaShapeImg,
       mouseCatchingTriangle,
     });
-
-    if (Meteor.Device.isDesktop()) {
-      this._bindDesktopEvents(marker, house);
-    } else {
-      this._bindMobileEvents(marker, house);
-    }
   }
 
   setAdminData(dataObj) {
@@ -466,11 +458,25 @@ class BotanikaMap {
         };
 
       let marker = L.marker(point, markerOptions).addTo(map);
+
       // add a shadow marker
-      this._createShadowMarker(house);
+      house.shadowMarker = this._createShadowMarker(house); // do we really need to store this reference?
+      this._drawSvgMarkerShadow(house);
 
+      //create regular marker
       this._createSvgElements(marker, house);
+      // attach events
+      // something fishy here - check!
+      if (Meteor.Device.isDesktop()) {
+        this._bindDesktopEvents(marker, house);
+      } else {
+        this._bindMobileEvents(marker, house);
+      }
 
+      // futhermore - create clusters for shadow markers and for regular separately
+      // no need to do this within admin interface?
+
+      // should i push a shadow as well? or is it ok as it is?
       this.addedMarkers.push(marker);
 
     });

@@ -13,3 +13,7 @@ Generally meteor-up doing a trick, email me for configuration and details.
 ## ES linting
 
   ``eslint -c .eslintrc --ignore-path .eslintignore *.js client``
+
+
+### hint for future
+use [https://github.com/Kriegslustig/meteor-altboiler](https://github.com/Kriegslustig/meteor-altboiler)
