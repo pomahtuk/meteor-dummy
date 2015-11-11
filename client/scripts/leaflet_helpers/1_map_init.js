@@ -47,6 +47,10 @@ class BotanikaMap {
     isAdmin ? this._bindMapAdminEvents() : null;
   }
 
+  _getHouseSlide(house) {
+    return $(`[data-hash=${house.type}]`).index();
+  }
+
   _createMap() {
     let map = new L.Map(this.containerId, {
       center: this.center,
@@ -239,6 +243,11 @@ class BotanikaMap {
     let marker = house.marker,
       {markerPath, mouseCatchingTriangle, openedMarkerPath} = marker;
 
+    function slideToHouse() {
+      let slideIndex = this._getHouseSlide(house);
+      Meteor.swiperV.slideTo(slideIndex);
+    }
+
     markerPath.mouseover(this._runAnim.bind(this, marker));
     mouseCatchingTriangle.mouseover(this._runAnim.bind(this, marker));
 
@@ -281,7 +290,13 @@ class BotanikaMap {
       this._resetAnim(marker);
     });
 
+    // // has to be optimized
+    // openedMarkerPath.click(slideToHouse.bind(this));
+    // markerPath.click(slideToHouse.bind(this));
+    // mouseCatchingTriangle.click(slideToHouse.bind(this));
+
     marker.on('mouseleave', this._resetAnim.bind(this, marker));
+    marker.on('click', slideToHouse.bind(this));
   }
 
   _bindMobileEvents(house) {
@@ -296,7 +311,8 @@ class BotanikaMap {
         this._runAnim(marker);
       } else {
         this._resetAnim(marker);
-        // open house itself
+        // better use 2 lines
+        Meteor.swiperV.slideTo(this._getHouseSlide(house));
       }
     });
   }
