@@ -8,6 +8,7 @@ class BotanikaMap {
     $.extend(this, {
       isAdmin,
       containerId,
+      markersInstancesCache: {},
       adminObject: {},
       center: [60.6374815, 30.173661],
       zoom: 16,
@@ -42,7 +43,8 @@ class BotanikaMap {
     this._createMap();
     this._addPlanOverlay();
     // temp for devmode
-    !isAdmin ? this._addBoundingMarkers() : this._bindMapAdminEvents();
+    // !isAdmin ? this._addBoundingMarkers() : this._bindMapAdminEvents();
+    isAdmin ? this._bindMapAdminEvents() : null;
   }
 
   _createMap() {
@@ -233,8 +235,9 @@ class BotanikaMap {
       });
   }
 
-  _bindDesktopEvents(marker, house) {
-    let {markerPath, mouseCatchingTriangle, openedMarkerPath} = marker;
+  _bindDesktopEvents(house) {
+    let marker = house.marker,
+      {markerPath, mouseCatchingTriangle, openedMarkerPath} = marker;
 
     markerPath.mouseover(this._runAnim.bind(this, marker));
     mouseCatchingTriangle.mouseover(this._runAnim.bind(this, marker));
@@ -281,7 +284,9 @@ class BotanikaMap {
     marker.on('mouseleave', this._resetAnim.bind(this, marker));
   }
 
-  _bindMobileEvents(marker, house) {
+  _bindMobileEvents(house) {
+    let marker = house.marker;
+
     marker.on('click', () => {
       if (!marker.markerOpened) {
         let allOpenedMarkers = this.addedMarkers.filter((singleMarker) => singleMarker.markerOpened);
@@ -343,7 +348,7 @@ class BotanikaMap {
         riseOnHover: false
       };
 
-    return L.marker(point, markerOptions).addTo(map);
+    return L.marker(point, markerOptions);//.addTo(map);
   }
 
   _drawSvgMarkerShadow(house) {
@@ -435,11 +440,51 @@ class BotanikaMap {
   getAdminData() {
     return this.adminObject;
   }
-
+ 
   addHousesMarkers(houses = []) {
     let map = this.map;
 
     this.houses = houses;
+
+    let clusteredMarkers = L.markerClusterGroup({
+      maxClusterRadius: 60,
+      iconCreateFunction (cluster) {
+        return L.divIcon({
+          html: `<b>${cluster.getChildCount()}</b>`,
+          className: 'mycluster',
+          iconSize: L.point(40, 40)
+        });
+      }
+    });
+
+    clusteredMarkers.on('animationMarkupRendered', () => {
+      this.houses.forEach((house, index) => {
+        let $svg = $(`#svg-${house.type}`);
+
+        // if svg created and no paths inside present
+        // consider it unclustered, put from cache
+        // and attach events?
+        if ($svg.length !==0 && $svg.find('path').length === 0) {
+          $svg.replaceWith(this.markersInstancesCache[house.type]);
+
+          // stop right here if we are rendering admin map
+          if (this.isAdmin) {
+            return true;
+          }
+          // otherwise bind events
+          if (Meteor.Device.isDesktop()) {
+            this._bindDesktopEvents(house);
+          } else {
+            this._bindMobileEvents(house);
+          }
+
+        }
+
+      });
+    });
+
+    map.addLayer(clusteredMarkers);
+
 
     houses.forEach((house, index) => {
       // convert input format
@@ -457,30 +502,39 @@ class BotanikaMap {
           riseOnHover: true
         };
 
-      let marker = L.marker(point, markerOptions).addTo(map);
+      let marker = L.marker(point, markerOptions);
+      // save reference to house
+      house.marker = marker;
+      // add current marker to cluster
+      clusteredMarkers.addLayer(marker);
+
 
       // add a shadow marker
-      house.shadowMarker = this._createShadowMarker(house); // do we really need to store this reference?
-      this._drawSvgMarkerShadow(house);
+      marker.shadowMarker = this._createShadowMarker(house); // do we really need to store this reference?
+      //marker.shadowMarker.addTo(map);
+      //this._drawSvgMarkerShadow(house);
 
       //create regular marker
       this._createSvgElements(marker, house);
-      // attach events
-      if (this.isAdmin) {
-        return true;
-      }
-      //
-      if (Meteor.Device.isDesktop()) {
-        this._bindDesktopEvents(marker, house);
-      } else {
-        this._bindMobileEvents(marker, house);
-      }
-
-      // futhermore - create clusters for shadow markers and for regular separately
-      // no need to do this within admin interface?
+      // save reference to created element
+      this.markersInstancesCache[house.type] = $(`#svg-${house.type}`).clone();
 
       // should i push a shadow as well? or is it ok as it is?
       this.addedMarkers.push(marker);
+
+      // stop right here if we are rendering admin map
+      if (this.isAdmin) {
+        return true;
+      }
+      // otherwise
+
+      // and bind events
+      if (Meteor.Device.isDesktop()) {
+        this._bindDesktopEvents(house);
+      } else {
+        this._bindMobileEvents(house);
+      }
+
 
     });
   }

@@ -914,6 +914,8 @@ L.MarkerClusterGroup.include(!L.DomUtil.TRANSITION ? {
 		//Do nothing...
 	},
 	_animationZoomIn: function (previousZoomLevel, newZoomLevel) {
+		this.fire('animationstart');
+
 		this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, previousZoomLevel);
 		this._topClusterLevel._recursivelyAddChildrenToMap(null, newZoomLevel, this._getExpandedVisibleBounds());
 
@@ -921,6 +923,8 @@ L.MarkerClusterGroup.include(!L.DomUtil.TRANSITION ? {
 		this.fire('animationend');
 	},
 	_animationZoomOut: function (previousZoomLevel, newZoomLevel) {
+		this.fire('animationstart');
+
 		this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, previousZoomLevel);
 		this._topClusterLevel._recursivelyAddChildrenToMap(null, newZoomLevel, this._getExpandedVisibleBounds());
 
@@ -934,6 +938,7 @@ L.MarkerClusterGroup.include(!L.DomUtil.TRANSITION ? {
 
 	//Animated versions here
 	_animationStart: function () {
+		this.fire('animationstart');
 		this._map._mapPane.className += ' leaflet-cluster-anim';
 		this._inZoomAnimation++;
 	},
@@ -948,6 +953,8 @@ L.MarkerClusterGroup.include(!L.DomUtil.TRANSITION ? {
 		var bounds = this._getExpandedVisibleBounds(),
 		    fg = this._featureGroup,
 		    i;
+
+		var that = this;
 
 		//Add all children of current clusters to map and remove those clusters from map
 		this._topClusterLevel._recursively(bounds, previousZoomLevel, 0, function (c) {
@@ -967,6 +974,8 @@ L.MarkerClusterGroup.include(!L.DomUtil.TRANSITION ? {
 				c.setOpacity(0);
 				c._recursivelyAddChildrenToMap(startPos, newZoomLevel, bounds);
 			}
+
+			that.fire('animationMarkupRendered');
 
 			//Remove all markers that aren't visible any more
 			//TODO: Do we actually need to do this on the higher levels too?
