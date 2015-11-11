@@ -420,6 +420,48 @@ class BotanikaMap {
     });
   }
 
+  _updateMakersAfterUnclustering() {
+    this.houses.forEach( (house, index) => {
+      let $svg = $(`#svg-${house.type}`);
+
+      // if svg created and no paths inside present
+      // consider it unclustered, put from cache
+      // and attach events?
+      if ($svg.length !==0 && $svg.find('path').length === 0) {
+        // i want to be sure that shadow marker added to dom
+        setTimeout(() => {
+          // replace elements with our copies
+          $svg.replaceWith(this.markersInstancesCache[house.type].clone());
+          // stop right here if we are rendering admin map
+          if (this.isAdmin) {
+            return true;
+          }
+          // for regular map
+          // recreate shadow
+          this._drawSvgMarkerShadow(house);
+          // refresh references
+          // so event will be attached properly
+          $.extend(house.marker, {
+            markerPath: Snap.select(`#marker-${house.type}`),
+            markerShadow: Snap.select(`#svg-shadow-${house.type}-ellipse`),
+            villaTitle: Snap.select(`#marker-${house.type}-title-group`),
+            openedMarkerPath: Snap.select(`#marker-open-${house.type}`),
+            openedMarkerBorder: Snap.select(`#marker-house-${house.type}-border`),
+            villaShapeImg: Snap.select(`#marker-${house.type}-villa`),
+            mouseCatchingTriangle: Snap.select(`#marker-${house.type}-mouse-catcher`),
+            animationPlayer: this._createHouseMarkerMorphPlayer(house, this._finalizeAnim.bind(this, house.marker))
+          });
+          // bind events
+          if (Meteor.Device.isDesktop()) {
+            this._bindDesktopEvents(house);
+          } else {
+            this._bindMobileEvents(house);
+          }
+        }, 10);
+      }
+    });
+  }
+
   setAdminData(dataObj) {
     let {adminObject} = this;
 
@@ -440,52 +482,43 @@ class BotanikaMap {
   getAdminData() {
     return this.adminObject;
   }
- 
-  addHousesMarkers(houses = []) {
-    let map = this.map;
 
+  addHousesMarkers(houses = []) {
+    let {map} = this;
     this.houses = houses;
 
+    // create cluster to add markers to
     let clusteredMarkers = L.markerClusterGroup({
       maxClusterRadius: 60,
       iconCreateFunction (cluster) {
         return L.divIcon({
           html: `<b>${cluster.getChildCount()}</b>`,
           className: 'mycluster',
-          iconSize: L.point(40, 40)
+          iconSize: L.point(40, 40),
+          zIndexOffset: 1000,
         });
       }
     });
-
-    clusteredMarkers.on('animationMarkupRendered', () => {
-      this.houses.forEach((house, index) => {
-        let $svg = $(`#svg-${house.type}`);
-
-        // if svg created and no paths inside present
-        // consider it unclustered, put from cache
-        // and attach events?
-        if ($svg.length !==0 && $svg.find('path').length === 0) {
-          $svg.replaceWith(this.markersInstancesCache[house.type]);
-
-          // stop right here if we are rendering admin map
-          if (this.isAdmin) {
-            return true;
-          }
-          // otherwise bind events
-          if (Meteor.Device.isDesktop()) {
-            this._bindDesktopEvents(house);
-          } else {
-            this._bindMobileEvents(house);
-          }
-
-        }
-
-      });
-    });
-
+    clusteredMarkers.on('animationMarkupRendered', this._updateMakersAfterUnclustering.bind(this));
     map.addLayer(clusteredMarkers);
 
+    // create cluster to add marker shadows to
+    let clusteredMarkerShadows = L.markerClusterGroup({
+      maxClusterRadius: 60,
+      iconCreateFunction (cluster) {
+        return L.divIcon({
+          // icon should be empty - i don't care about shadown group now
+          html: '',
+          className: 'mycluster',
+          iconSize: L.point(40, 40),
+          zIndexOffset: 500,
+        });
+      }
+    });
+    // clusteredMarkerShadows.on('animationMarkupRendered', this._updateMakersAfterUnclustering.bind(this));
+    map.addLayer(clusteredMarkerShadows);
 
+    // go throuth all houses and create initial markers
     houses.forEach((house, index) => {
       // convert input format
       house.type = house.houseType;
@@ -510,9 +543,10 @@ class BotanikaMap {
 
 
       // add a shadow marker
-      marker.shadowMarker = this._createShadowMarker(house); // do we really need to store this reference?
+      let shadowMarker = this._createShadowMarker(house);
+      clusteredMarkerShadows.addLayer(shadowMarker);
       //marker.shadowMarker.addTo(map);
-      //this._drawSvgMarkerShadow(house);
+      this._drawSvgMarkerShadow(house);
 
       //create regular marker
       this._createSvgElements(marker, house);
