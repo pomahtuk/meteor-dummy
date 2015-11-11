@@ -492,9 +492,34 @@ class BotanikaMap {
       maxClusterRadius: 60,
       iconCreateFunction (cluster) {
         return L.divIcon({
-          html: `<b>${cluster.getChildCount()}</b>`,
+          html: `
+            <svg id="snap" width="70" height="100">
+              <defs>
+                <filter id="Sigv90p281" filterUnits="userSpaceOnUse">
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="3"></feGaussianBlur>
+                  <feOffset dx="0" dy="0" result="offsetblur"></feOffset>
+                  <feFlood flood-color="#000000"></feFlood>
+                  <feComposite in2="offsetblur" operator="in">
+                  </feComposite>
+                  <feComponentTransfer>
+                    <feFuncA type="linear" slope="1"></feFuncA>
+                  </feComponentTransfer>
+                  <feMerge>
+                    <feMergeNode></feMergeNode>
+                    <feMergeNode in="SourceGraphic"></feMergeNode>
+                  </feMerge>
+                </filter>
+              </defs>
+              <ellipse cx="27" cy="95" rx="16" ry="3" filter="url('#Sigv90p281')" fill="#342a2b" id="svg-azalia-ellipse"></ellipse>
+              <path fill="#85b200" id="marker-open-azalia" transform="matrix(1,0,0,1,-24,2)" class="marker-open-svg" d="M94,35 C94,54.329966244085,78.329966244085,70,59,70,39.670033755915,70,24,54.329966244085,24,35,24,15.670033755915,39.670033755915,0,59,0,78.329966244085,0,94,15.670033755915,94,35zM55.5,69 L60.5,69,58,94,55.5,69z"></path>
+              <text x="35" y="25" font-weigth="bold" fill="#ebeff0" id="marker-azalia-title-name" style="font-size: 16px; text-anchor: middle;">${cluster.getChildCount()}</text>
+              <text x="35" y="42" fill="#ebeff0" id="marker-azalia-title-name" style="font-size: 10px; font-family: Verdana; text-anchor: middle;">Поселок</text>
+              <text x="35" y="55" fill="#ebeff0" id="marker-azalia-title-name" style="font-size: 10px; font-family: Verdana; text-anchor: middle;">Ботаника</text>
+            </svg>
+          `,
           className: 'mycluster',
-          iconSize: L.point(40, 40),
+          iconSize: [70, 100],
+          iconAnchor: [35, 95],
           zIndexOffset: 1000,
         });
       }
