@@ -87,7 +87,7 @@ logging@1.0.8
 meteor@1.1.10
 meteor-base@1.0.1
 meteorhacks:inject-initial@1.0.3
-meteorhacks:kadira@2.26.1
+meteorhacks:kadira@2.26.3
 meteorhacks:meteorx@1.4.1
 meteorhacks:unblock@1.1.0
 meteorhacks:zones@1.6.0
@@ -120,7 +120,7 @@ routepolicy@1.0.6
 service-configuration@1.0.5
 session@1.1.1
 sha@1.0.4
-softwarerero:accounts-t9n@1.1.4
+softwarerero:accounts-t9n@1.1.6
 spacebars@1.0.7
 spacebars-compiler@1.0.7
 srp@1.0.4
